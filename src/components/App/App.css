@@ -1,1 +1,15 @@
+.page {
+  font-family: 'Inter', Arial, sans-serif;
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
+.content {
+  max-width: 1280px;
+  margin: 0 auto;
+}

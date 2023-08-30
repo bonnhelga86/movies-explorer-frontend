@@ -1,4 +1,4 @@
-import './App.css';
+import React from 'react';
 import { Route, Routes, Navigate  } from 'react-router-dom';
 import Main from '../Pages/Main/Main';
 import Register from '../Pages/Register/Register';
@@ -10,11 +10,13 @@ import NotFound from '../Pages/NotFound/NotFound';
 import Header from '../Elements/Header/Header';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+
   return (
     <>
-      <Header />
+      {isLoggedIn && <Header />}
 
-      <main className="container">
+      <main className="content">
         <Routes>
           <Route path="/signup" element={
             <Register />
