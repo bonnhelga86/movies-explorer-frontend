@@ -5,3 +5,15 @@
 @import url("./components/App/App.css");
 
 @import url("./components/Pages/NotFound/NotFound.css");
+@import url("./components/Pages/Main/Main.css");
+
+@import url("./components/Elements/Header/Header.css");
+@import url("./components/Elements/Navigation/Navigation.css");
+@import url("./components/Elements/Promo/Promo.css");
+@import url("./components/Elements/NavTab/NavTab.css");
+@import url("./components/Elements/AboutProject/AboutProject.css");
+@import url("./components/Elements/Techs/Techs.css");
+@import url("./components/Elements/AboutMe/AboutMe.css");
+@import url("./components/Elements/Portfolio/Portfolio.css");
+
+@import url("./components/Elements/Footer/Footer.css");

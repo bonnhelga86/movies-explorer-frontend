@@ -14,7 +14,7 @@ function App() {
 
   return (
     <>
-      {isLoggedIn && <Header />}
+      <Header isLoggedIn={isLoggedIn} />
 
       <main className="content">
         <Routes>

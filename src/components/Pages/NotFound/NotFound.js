@@ -6,9 +6,9 @@ function NotFound() {
 
   return (
     <div className="error">
-      <h1 className="error__code">
+      <h2 className="error__code">
         404
-      </h1>
+      </h2>
       <p className="error__text">Страница не найдена</p>
       <Link to="" onClick={() => navigate(-1)} className="error__link">
         Назад

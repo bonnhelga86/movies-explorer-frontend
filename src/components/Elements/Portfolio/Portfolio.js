@@ -1,8 +1,20 @@
 function Portfolio() {
   return (
-    <div >
-        Элемент Portfolio
-    </div>
+    <section className="portfolio">
+      <h2 className="portfolio__title">Портфолио</h2>
+
+      <ul className="portfolio__list">
+        <li className="portfolio__item">
+          Статичный сайт
+        </li>
+        <li className="portfolio__item">
+          Адаптивный сайт
+        </li>
+        <li className="portfolio__item">
+          Одностраничное приложение
+        </li>
+      </ul>
+    </section>
   );
 }
 

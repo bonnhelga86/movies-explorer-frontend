@@ -1,8 +1,6 @@
 function NavTab() {
   return (
-    <div >
-        Элемент NavTab
-    </div>
+    <button className="promo__button">Узнать больше</button>
   );
 }
 
