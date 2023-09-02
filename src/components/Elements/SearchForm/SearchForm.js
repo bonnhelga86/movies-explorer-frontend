@@ -5,11 +5,13 @@ import Input from '../../Elements/Input/Input';
 function SearchForm() {
   return (
     <section className="search">
-      <Form type={'search'} buttonValue={'Найти'} >
+      <Form formName={'search'} type={'search'} buttonValue={'Найти'} >
         <Input
           name={'search-input'}
+          id={'search-input'}
           className={'form__input'}
           placeholder={'Фильм'}
+          inputType={'text'}
         />
       </Form>
       <FilterCheckbox />

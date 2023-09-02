@@ -1,10 +1,11 @@
-function Input({ name, className, placeholder }) {
+function Input({ name, className, placeholder='', id, inputType }) {
   return (
     <input
       name={name}
       className={className}
       placeholder={placeholder}
-      type="text"
+      type={inputType}
+      id={id}
     />
   );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../Elements/Header/Header';
-import CustomRoutes from '../CustomElement/CustomRoutes';
+import CustomRoutes from '../CustomComponent/CustomRoutes';
 import { movieList } from '../../utils/movieList';
 
 function App() {

@@ -1,8 +1,8 @@
-function Form({ type, buttonValue, children }) {
+function Form({ formName, type, buttonValue, children }) {
   return (
-    <form name={type+'-form'} className={'form '+type+'__form'} noValidate>
-        {children}
-        <button className={'form__button '+type+'__button'}>{buttonValue}</button>
+    <form name={formName+'-form'} className={type+'__form form'} noValidate>
+      {children}
+      <button className={'form__button form__button_type_'+type}>{buttonValue}</button>
     </form>
   );
 }
