@@ -1,11 +1,8 @@
-function Form({ type, children }) {
+function Form({ type, buttonValue, children }) {
   return (
     <form name={type+'-form'} className={'form '+type+'__form'} noValidate>
-      <div className="form__input-wrap">
         {children}
-        <button className="form__button">Найти</button>
-      </div>
-
+        <button className={'form__button '+type+'__button'}>{buttonValue}</button>
     </form>
   );
 }

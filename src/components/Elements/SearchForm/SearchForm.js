@@ -5,7 +5,7 @@ import Input from '../../Elements/Input/Input';
 function SearchForm() {
   return (
     <section className="search">
-      <Form type={'search'} >
+      <Form type={'search'} buttonValue={'Найти'} >
         <Input
           name={'search-input'}
           className={'form__input'}
