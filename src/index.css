@@ -6,6 +6,7 @@
 
 @import url("./components/Pages/NotFound/NotFound.css");
 @import url("./components/Pages/Main/Main.css");
+@import url("./components/Pages/Movies/Movies.css");
 
 @import url("./components/Elements/Header/Header.css");
 @import url("./components/Elements/Navigation/Navigation.css");
@@ -15,5 +16,11 @@
 @import url("./components/Elements/Techs/Techs.css");
 @import url("./components/Elements/AboutMe/AboutMe.css");
 @import url("./components/Elements/Portfolio/Portfolio.css");
+@import url("./components/Elements/Form/Form.css");
+@import url("./components/Elements/Input/Input.css");
+@import url("./components/Elements/SearchForm/SearchForm.css");
+@import url("./components/Elements/FilterCheckbox/FilterCheckbox.css");
+@import url("./components/Elements/MoviesCardList/MoviesCardList.css");
+@import url("./components/Elements/MoviesCard/MoviesCard.css");
 
 @import url("./components/Elements/Footer/Footer.css");

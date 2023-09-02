@@ -1,8 +1,17 @@
-function Movies() {
+import SearchForm from '../../Elements/SearchForm/SearchForm';
+import MoviesCardList from '../../Elements/MoviesCardList/MoviesCardList';
+
+function Movies({ movies }) {
   return (
-    <div >
-        Страница Movies
-    </div>
+    <>
+      <SearchForm />
+      <MoviesCardList
+        movies={movies}
+        type={'likes'}
+        buttonLabel={'Лайкнуть'}
+      />
+    </>
+
   );
 }
 

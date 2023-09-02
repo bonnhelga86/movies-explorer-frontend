@@ -1,8 +1,15 @@
-function SavedMovies() {
+import MoviesCardList from '../../Elements/MoviesCardList/MoviesCardList';
+
+function SavedMovies({ savedMovies }) {
   return (
-    <div >
-        Страница SavedMovies
-    </div>
+    <>
+      <MoviesCardList
+        movies={savedMovies}
+        type={'delete'}
+        buttonLabel={'Удалить из списка'}
+      />
+    </>
+
   );
 }
 
