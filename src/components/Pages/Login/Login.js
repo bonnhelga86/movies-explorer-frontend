@@ -16,7 +16,7 @@ function Login() {
 
       <p className="sign__text">
         Ещё не зарегистрированы?
-        <Link to="/signin" className="sign__link">
+        <Link to="/signup" className="sign__link">
           Регистрация
         </Link>
       </p>

@@ -7,7 +7,7 @@ function FilterCheckbox() {
           name="checkbox-input"
           id="checkbox-input"
         />
-        <label for="checkbox-input" className="checkbox__label">
+        <label htmlFor="checkbox-input" className="checkbox__label">
           Короткометражки
         </label>
     </div>

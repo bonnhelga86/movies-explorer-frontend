@@ -1,4 +1,4 @@
-import MoviesCardList from '../../Elements/MoviesCardList/MoviesCardList';
+import MoviesCardList from '../../Sections/MoviesCardList/MoviesCardList';
 
 function SavedMovies({ savedMovies }) {
   return (

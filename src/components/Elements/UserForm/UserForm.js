@@ -8,8 +8,8 @@ function UserForm({ title, formName, type, inputList, buttonValue }) {
       <Form formName={formName} type={type} buttonValue={buttonValue} >
 
         {inputList.map(input => (
-          <div className="form__input-wrap">
-            <label className={'form__label form__label_type_'+type} for={formName+'-'+input.name}>
+          <div key={formName+'-'+input.name} className="form__input-wrap">
+            <label className={'form__label form__label_type_'+type} htmlFor={formName+'-'+input.name}>
               {input.label}
             </label>
             <Input

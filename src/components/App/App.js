@@ -1,10 +1,10 @@
 import React from 'react';
-import Header from '../Elements/Header/Header';
+import Header from '../Sections/Header/Header';
 import CustomRoutes from '../CustomComponent/CustomRoutes';
 import { movieList } from '../../utils/movieList';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
   const [movies, setMovies] = React.useState(movieList);
   const [savedMovies, setSavedMovies] = React.useState([]);
 

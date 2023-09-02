@@ -1,4 +1,4 @@
-import NavTab from '../NavTab/NavTab';
+import NavTab from '../../Elements/NavTab/NavTab';
 
 function Promo() {
   return (

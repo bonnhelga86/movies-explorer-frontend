@@ -1,5 +1,5 @@
-import SearchForm from '../../Elements/SearchForm/SearchForm';
-import MoviesCardList from '../../Elements/MoviesCardList/MoviesCardList';
+import SearchForm from '../../Sections/SearchForm/SearchForm';
+import MoviesCardList from '../../Sections/MoviesCardList/MoviesCardList';
 
 function Movies({ movies }) {
   return (
