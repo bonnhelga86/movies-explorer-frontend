@@ -7,9 +7,29 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-}
-
-.content {
   max-width: 1280px;
   margin: 0 auto;
+}
+
+.page__link {
+  text-decoration: none;
+}
+
+.page__link:hover {
+  opacity: .7;
+}
+
+.page__list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.content__title {
+  font-size: 22px;
+  line-height: 27px;
+  font-weight: 400;
+  padding-bottom: 23px;
+  border-bottom: 1px solid #000;
+  letter-spacing: -0.8px;
 }

@@ -1,7 +1,7 @@
-export const headerNavigation = [
+export const headerNavigations = [
   {
     path: '/movies',
-    name: 'Фильмы'
+    name: 'Фильмы',
   },
   {
     path: '/saved-movies',
@@ -9,13 +9,15 @@ export const headerNavigation = [
   }
 ];
 
-export const signNavigation = [
+export const footerNavigations = [
   {
-    path: '/signup',
-    name: 'Регистрация'
+    path: 'https://practicum.yandex.ru/',
+    name: 'Яндекс.Практикум',
+    target: '_blank'
   },
   {
-    path: '/signin',
-    name: 'Войти'
+    path: 'https://github.com/bonnhelga86',
+    name: 'Github',
+    target: '_blank'
   }
 ];

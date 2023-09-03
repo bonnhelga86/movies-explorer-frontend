@@ -3,7 +3,6 @@ import AboutProject from '../../Sections/AboutProject/AboutProject';
 import Techs from '../../Sections/Techs/Techs';
 import AboutMe from '../../Sections/AboutMe/AboutMe';
 import Portfolio from '../../Sections/Portfolio/Portfolio';
-import Footer from '../../Sections/Footer/Footer';
 
 function Main() {
   return (
@@ -13,7 +12,6 @@ function Main() {
       <Techs />
       <AboutMe />
       <Portfolio />
-      <Footer />
     </>
   );
 }

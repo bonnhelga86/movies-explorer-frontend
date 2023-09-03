@@ -21,12 +21,4 @@
 @import url("./components/Sections/MoviesCardList/MoviesCardList.css");
 @import url("./components/Sections/Footer/Footer.css");
 
-@import url("./components/Elements/Navigation/Navigation.css");
-@import url("./components/Elements/HeaderNavigation/HeaderNavigation.css");
-@import url("./components/Elements/SignNavigation/SignNavigation.css");
-@import url("./components/Elements/NavTab/NavTab.css");
 @import url("./components/Elements/Form/Form.css");
-@import url("./components/Elements/Input/Input.css");
-@import url("./components/Elements/UserForm/UserForm.css");
-@import url("./components/Elements/FilterCheckbox/FilterCheckbox.css");
-@import url("./components/Elements/MoviesCard/MoviesCard.css");

@@ -2,7 +2,7 @@ import MoviesCard from '../../Elements/MoviesCard/MoviesCard';
 
 function MoviesCardList({ movies, type, buttonLabel }) {
   return (
-    <section className="movies">
+    <section className="movies" aria-label="Секция с фильмами">
       <ul className="movies__list">
         {movies.length > 0
           ? movies.map(movie => (

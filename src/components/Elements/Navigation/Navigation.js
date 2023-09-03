@@ -1,19 +1,23 @@
 import { Link } from 'react-router-dom';
 
-function Navigation({ navigations, children }) {
+function Navigation({ navigations, parent, children }) {
   return (
-    <nav className="header__menu">
-        <ul className="header__menu-list">
-          {navigations.map(navigation => (
-            <li key={navigation.path} className="header__menu-item">
-              <Link to={navigation.path} className="header__menu-link">
-                {navigation.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        {children}
-      </nav>
+    <nav className={parent+'__menu'}>
+      <ul className={parent+'__list page__list'}>
+        {navigations.map(navigation => (
+          <li key={navigation.path} className={parent+'__item'}>
+            <Link
+              to={navigation.path}
+              className={parent+'__link page__link'}
+              target={navigation.target ? navigation.target : '_self'}
+            >
+              {navigation.name}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      {children}
+    </nav>
   );
 }
 
