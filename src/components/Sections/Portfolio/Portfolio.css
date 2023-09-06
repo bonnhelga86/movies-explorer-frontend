@@ -39,3 +39,37 @@
   width: 24px;
   height: 16px;
 }
+
+@media screen and (max-width: 960px) {
+  .portfolio {
+    padding: 0 50px 90px;
+  }
+
+  .portfolio__item {
+    font-size: 28px;
+  }
+}
+
+@media screen and (max-width: 675px) {
+  .portfolio {
+    padding: 0 14px 70px;
+  }
+
+  .portfolio__title {
+    margin-bottom: 40px;
+    font-size: 14px;
+  }
+
+  .portfolio__item {
+    align-items: center;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: -0.7px;
+  }
+
+  .portfolio__link {
+    width: 15px;
+    height: 10px;
+    background-size: contain;
+  }
+}

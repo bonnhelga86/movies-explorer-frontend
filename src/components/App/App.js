@@ -8,7 +8,7 @@ import { movieList } from '../../utils/movieList';
 function App() {
   const location = useLocation();
 
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
   const [movies, setMovies] = React.useState(movieList);
   const [savedMovies, setSavedMovies] = React.useState([]);
 
