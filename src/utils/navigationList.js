@@ -5,7 +5,22 @@ export const headerNavigations = [
   },
   {
     path: '/saved-movies',
-    name: 'Сохраненные фильмы'
+    name: 'Сохранённые фильмы'
+  }
+];
+
+export const sliderMenuNavigations = [
+  {
+    path: '/',
+    name: 'Главная',
+  },
+  {
+    path: '/movies',
+    name: 'Фильмы',
+  },
+  {
+    path: '/saved-movies',
+    name: 'Сохранённые фильмы'
   }
 ];
 

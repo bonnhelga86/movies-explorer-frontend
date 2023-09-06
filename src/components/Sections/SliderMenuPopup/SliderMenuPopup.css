@@ -1,0 +1,116 @@
+.popup {
+  position: fixed;
+  display: flex;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0, .3);
+  z-index: 1;
+  justify-content: end;
+  transition: visibility .4s, opacity .4s linear;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.popup_opened {
+  opacity: 1;
+  visibility: visible;
+  transition: .4s;
+}
+
+.popup__container {
+  box-sizing: border-box;
+  position: relative;
+  padding: 159px 10px 90px;
+  width: 67.7%;
+  /* width: 520px; */
+  background-color: #fff;
+}
+
+.popup__close {
+  background-image: url(../../../images/close-icon.svg);
+  background-repeat: no-repeat;
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  border: none;
+  padding: 0;
+  background-color: inherit;
+  position: absolute;
+  top: 24px;
+  right: 23px;
+}
+
+.popup__menu-wrap {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.popup__list {
+  display: flex;
+  flex-direction: column;
+  gap: 29px;
+  align-items: center;
+}
+
+.popup__link {
+  color: #000;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 500;
+  padding-bottom: 4px;
+}
+
+.popup__link_active {
+  border-bottom: 2px solid #000;
+}
+
+.popup__profile-link {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #000;
+  font-size: 13px;
+  line-height: 12px;
+  font-weight: 500;
+  width: 100px;
+  height: 32px;
+  border-radius: 40px;
+  padding-left: 11px;
+  box-sizing: border-box;
+  box-shadow: 0 3px 14px 0 rgba(0, 0, 0, .08)  ;
+}
+
+.popup__profile-link::after {
+  content: '';
+  background-image: url(../../../images/account-icon.svg);
+  background-repeat: no-repeat;
+  background-color: #f9f9f9;
+  background-position: center;
+  display: block;
+  height: 12px;
+  width: 12px;
+  padding: 7px;
+  border-radius: 50px;
+}
+
+@media screen and (max-width: 500px) {
+  .popup__container {
+    padding-top: 144px;
+    padding-bottom: 46px;
+    width: 320px;
+  }
+
+  .popup__list {
+    gap: 25px;
+  }
+
+  .popup__close {
+    top: 14px;
+    right: 14px;
+  }
+}

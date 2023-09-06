@@ -6,10 +6,9 @@ import UserNavigation from '../../Elements/UserNavigation/UserNavigation';
 import { headerNavigations } from '../../../utils/navigationList';
 import logo from '../../../images/logo.svg';
 
-function Header({ isLoggedIn }) {
+function Header({ isLoggedIn, changePopupOpen, isPopupOpen }) {
   const location = useLocation();
   const theme = location.pathname === '/' ? 'dark' : 'light';
-  const [sliderMenu, setSliderMenu] = React.useState(false);
 
   return(
     <header className={'header header_theme_'+theme}>
@@ -24,7 +23,10 @@ function Header({ isLoggedIn }) {
             && (
               <>
                 <Navigation navigations={headerNavigations} parent={'header'} />
-                <SliderMenu sliderMenu={sliderMenu} setSliderMenu={setSliderMenu} />
+                <SliderMenu
+                  isPopupOpen={isPopupOpen}
+                  changePopupOpen={changePopupOpen}
+                />
               </>
               )
             }
