@@ -1,4 +1,4 @@
-function SliderMenu({ isPopupOpen, changePopupOpen }) {
+function SliderMenu({ isPopupOpen, changePopupOpen, theme }) {
   return(
     <div
       className="header__slider-menu page__link"
@@ -6,9 +6,9 @@ function SliderMenu({ isPopupOpen, changePopupOpen }) {
     >
       {!isPopupOpen
       && <div className="header__slider-open">
-          <hr className="header__slider-line" />
-          <hr className="header__slider-line" />
-          <hr className="header__slider-line" />
+          <hr className={'header__slider-line header__slider-line_theme_'+theme} />
+          <hr className={'header__slider-line header__slider-line_theme_'+theme} />
+          <hr className={'header__slider-line header__slider-line_theme_'+theme} />
         </div>
       }
     </div>

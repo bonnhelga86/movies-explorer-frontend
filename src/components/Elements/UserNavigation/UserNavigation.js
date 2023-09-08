@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 
-function UserNavigation({ isLoggedIn }) {
+function UserNavigation({ isLoggedIn, theme }) {
   return (
     <nav className={'header__menu'}>
         {isLoggedIn
-        ? <Link to="/profile" className="header__profile-link page__link">
+        ? <Link
+            to="/profile"
+            className={'header__profile-link page__link header__profile-link_theme_'+theme}>
             Аккаунт
           </Link>
         : <ul className={'header__list header__list_type_sign page__list'}>

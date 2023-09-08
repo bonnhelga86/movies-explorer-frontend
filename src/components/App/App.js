@@ -4,14 +4,14 @@ import Header from '../Sections/Header/Header';
 import SliderMenuPopup from '../Sections/SliderMenuPopup/SliderMenuPopup';
 import CustomRoutes from '../CustomComponent/CustomRoutes';
 import Footer from '../Sections/Footer/Footer';
-import { movieList } from '../../utils/movieList';
+// import { movieList } from '../../utils/movieList';
 
 function App() {
   const location = useLocation();
 
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
-  const [movies, setMovies] = React.useState(movieList);
-  const [savedMovies, setSavedMovies] = React.useState([]);
+  // const [movies, setMovies] = React.useState(movieList);
+  // const [savedMovies, setSavedMovies] = React.useState([]);
   const [isSliderMenuPopupOpen, setIsSliderMenuPopupOpen] = React.useState(false);
 
   return (
@@ -24,7 +24,7 @@ function App() {
           />}
 
       <main className="content">
-        <CustomRoutes movies={movies} savedMovies={savedMovies} />
+        <CustomRoutes />
       </main>
 
       {(location.pathname === '/'

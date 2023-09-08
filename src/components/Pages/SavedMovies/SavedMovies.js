@@ -1,15 +1,21 @@
+import SearchForm from '../../Sections/SearchForm/SearchForm';
 import MoviesCardList from '../../Sections/MoviesCardList/MoviesCardList';
+import { movieList } from '../../../utils/movieList';
 
-function SavedMovies({ savedMovies }) {
+function SavedMovies() {
+const movies = movieList.filter(movie => movie.likes === 'likes');
+
   return (
     <>
-      <MoviesCardList
-        movies={savedMovies}
-        type={'delete'}
-        buttonLabel={'Удалить из списка'}
-      />
+      <SearchForm />
+      <section className="movies saved-movies" aria-label="Секция с фильмами">
+        <MoviesCardList
+          movies={movies}
+          type={'dislikes'}
+          buttonLabel={'Удалить из списка'}
+        />
+      </section>
     </>
-
   );
 }
 

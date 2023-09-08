@@ -9,7 +9,7 @@ function SearchForm() {
         <Input
           name={'search-input'}
           id={'search-input'}
-          className={'form__input'}
+          className={'form__input search__input'}
           placeholder={'Фильм'}
           inputType={'text'}
         />

@@ -22,15 +22,21 @@ function Header({ isLoggedIn, changePopupOpen, isPopupOpen }) {
             {isLoggedIn
             && (
               <>
-                <Navigation navigations={headerNavigations} parent={'header'} />
+                <Navigation
+                  navigations={headerNavigations}
+                  parent={'header'}
+                  extraClass={true}
+                  modifier={'_theme_'+theme}
+                />
                 <SliderMenu
                   isPopupOpen={isPopupOpen}
                   changePopupOpen={changePopupOpen}
+                  theme={theme}
                 />
               </>
               )
             }
-            <UserNavigation isLoggedIn={isLoggedIn} />
+            <UserNavigation isLoggedIn={isLoggedIn} theme={theme} />
           </div>
         )
       }

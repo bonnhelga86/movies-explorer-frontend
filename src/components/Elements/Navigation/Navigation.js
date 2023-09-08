@@ -1,6 +1,10 @@
 import { NavLink } from 'react-router-dom';
 
-function Navigation({ navigations, parent }) {
+function Navigation({ navigations, parent, extraClass=false, modifier }) {
+  const linkClass = !extraClass
+    ? parent+'__link page__link '
+    : parent+'__link page__link '+parent+'__link'+modifier;
+
   return (
     <nav className={parent+'__menu'}>
       <ul className={parent+'__list page__list'}>
@@ -9,8 +13,8 @@ function Navigation({ navigations, parent }) {
             <NavLink
               to={navigation.path}
               className={({ isActive }) =>
-                isActive ? parent+'__link page__link '+parent+'__link_active'
-                        : parent+'__link page__link'
+                isActive ? linkClass+' '+parent+'__link_active'
+                        : linkClass
               }
               target={navigation.target ? navigation.target : '_self'}
             >

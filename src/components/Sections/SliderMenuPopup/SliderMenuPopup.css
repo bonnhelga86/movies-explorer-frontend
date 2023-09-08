@@ -24,7 +24,7 @@
   position: relative;
   padding: 159px 10px 90px;
   width: 67.7%;
-  /* width: 520px; */
+  max-width: 520px;
   background-color: #fff;
 }
 
@@ -34,7 +34,6 @@
   width: 30px;
   height: 30px;
   background-size: cover;
-  border: none;
   padding: 0;
   background-color: inherit;
   position: absolute;
@@ -82,7 +81,7 @@
   border-radius: 40px;
   padding-left: 11px;
   box-sizing: border-box;
-  box-shadow: 0 3px 14px 0 rgba(0, 0, 0, .08)  ;
+  box-shadow: 0 3px 14px 0 rgba(0, 0, 0, .08);
 }
 
 .popup__profile-link::after {

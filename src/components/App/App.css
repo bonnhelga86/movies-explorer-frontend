@@ -13,10 +13,20 @@
 
 .page__link {
   text-decoration: none;
+  color: #000;
 }
 
 .page__link:hover {
   opacity: .7;
+}
+
+.page__button {
+  border: none;
+}
+
+.page__button:hover {
+  cursor: pointer;
+  opacity: .8;
 }
 
 .page__list {

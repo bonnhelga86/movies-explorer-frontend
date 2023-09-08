@@ -1,5 +1,5 @@
 .footer {
-  padding: 60px 70px 20px;
+  padding: 79px 70px 20px;
 }
 
 .footer__title {
@@ -39,13 +39,15 @@
 
 @media screen and (max-width: 960px) {
   .footer {
-    padding: 60px 30px 20px;
+    padding-left: 30px;
+    padding-right: 30px;
   }
 }
 
 @media screen and (max-width: 675px) {
   .footer {
-    padding: 59px 10px 20px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
   .footer__title {
