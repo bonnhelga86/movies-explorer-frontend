@@ -59,6 +59,11 @@
 
 .movies__button_type_dislikes {
   background-image: url(../../../images/dislikes-icon.svg);
+  opacity: 0;
+}
+
+.movies__button_type_dislikes:hover {
+  opacity: 1;
 }
 
 .movies__duration {

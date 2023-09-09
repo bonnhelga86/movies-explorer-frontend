@@ -2,7 +2,11 @@ const inputList = {
   name: {
     label: 'Имя',
     name: 'name',
-    type: 'text'
+    type: 'text',
+    extraProps: {
+      minLength: '2',
+      maxLength: '30'
+    }
   },
   email: {
     label: 'E-mail',

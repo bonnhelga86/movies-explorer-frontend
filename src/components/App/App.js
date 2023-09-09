@@ -4,18 +4,17 @@ import Header from '../Sections/Header/Header';
 import SliderMenuPopup from '../Sections/SliderMenuPopup/SliderMenuPopup';
 import CustomRoutes from '../CustomComponent/CustomRoutes';
 import Footer from '../Sections/Footer/Footer';
-// import { movieList } from '../../utils/movieList';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 function App() {
   const location = useLocation();
 
+  const [currentUser, setCurrentUser] = React.useState({name: 'Виталий', email: 'pochta@yandex.ru'});
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
-  // const [movies, setMovies] = React.useState(movieList);
-  // const [savedMovies, setSavedMovies] = React.useState([]);
   const [isSliderMenuPopupOpen, setIsSliderMenuPopupOpen] = React.useState(false);
 
   return (
-    <>
+    <CurrentUserContext.Provider value={currentUser}>
       {(location.pathname !== '/not-found')
         && <Header
             isLoggedIn={isLoggedIn}
@@ -38,7 +37,7 @@ function App() {
         isPopupOpen={isSliderMenuPopupOpen}
         changePopupOpen={setIsSliderMenuPopupOpen}
       />
-    </>
+    </CurrentUserContext.Provider>
   );
 }
 
