@@ -9,6 +9,6 @@ export const portfolio = [
   },
   {
     name: 'Одностраничное приложение',
-    path: 'https://bonnhelga86.github.io/react-mesto-api-full-gha/'
+    path: 'https://bonnhelga86.github.io/mesto-react/'
   }
 ];
