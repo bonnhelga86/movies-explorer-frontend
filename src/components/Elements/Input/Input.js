@@ -15,24 +15,21 @@ function Input({
 {
   const currentUser = React.useContext(CurrentUserContext);
   const [currentValue, setCurrentValue] = React.useState('');
+  const [initialValue, setInitialValue] = React.useState('');
 
   React.useEffect(() => {
-    isAutoFill && setCurrentValue(currentUser[name]);
+    if (isAutoFill) {
+      setCurrentValue(currentUser[name]);
+      setInitialValue(currentUser[name]);
+    }
   }, []);
 
   React.useEffect(() => {
-    if(isAutoFill) {
-      if (currentValue !== currentUser[name]) {
-        setInputChange({...inputChange, [name]: true});
-      } else {
-        setInputChange({...inputChange, [name]: false});
-      }
-    } else if (currentValue) {
+    if (currentValue !== initialValue) {
       setInputChange({...inputChange, [name]: true});
     } else {
       setInputChange({...inputChange, [name]: false});
     }
-
   }, [currentValue]);
 
   return (

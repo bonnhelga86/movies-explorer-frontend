@@ -1,8 +1,6 @@
-import { Link } from 'react-router-dom';
-
 function NavTab() {
   return (
-    <Link to="" className="promo__link page__link">Узнать больше</Link>
+    <a href="#about" className="promo__link page__link">Узнать больше</a>
   );
 }
 

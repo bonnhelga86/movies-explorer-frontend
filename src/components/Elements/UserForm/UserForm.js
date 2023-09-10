@@ -10,39 +10,52 @@ function UserForm({
     buttonValue,
     inputChange,
     setInputChange,
-    isSubmitActive
+    extraButtonClass
   })
 {
   return (
     <>
-      <h2 className={type+'__title'}>{title}</h2>
+      <h2 className={`${type}__title`}>{title}</h2>
       <Form
         formName={formName}
         type={type}
         buttonValue={buttonValue}
-        isSubmitActive={isSubmitActive}
+        extraButtonClass={extraButtonClass}
       >
 
         <div className={`${type}__input-list-wrap`}>
           {inputList.map(input => (
-            <div key={formName+'-'+input.name} className={`${type}__input-wrap`}>
-              <label className={`${type}__label`} htmlFor={formName+'-'+input.name}>
-                {input.label}
-              </label>
-              <Input
-                id={formName+'-'+input.name}
-                inputName={formName+'-'+input.name}
-                name={input.name}
-                className={`form__input ${type}__input`}
-                inputType={input.type}
-                isAutoFill={type === 'profile' ? true : false}
-                extraProps={input.extraProps && input.extraProps}
-                inputChange={inputChange}
-                setInputChange={setInputChange}
-              />
-            </div>
+            <>
+              <div key={`${formName}-${input.name}`} className={`${type}__input-wrap`}>
+                <label className={`${type}__label`} htmlFor={`${formName}-${input.name}`}>
+                  {input.label}
+                </label>
+                <Input
+                  id={`${formName}-${input.name}`}
+                  inputName={`${formName}-${input.name}`}
+                  name={input.name}
+                  className={`form__input ${type}__input`}
+                  inputType={input.type}
+                  isAutoFill={type === 'profile' ? true : false}
+                  extraProps={input.extraProps && input.extraProps}
+                  inputChange={inputChange}
+                  setInputChange={setInputChange}
+                />
+              </div>
+              {type === 'sign'
+                &&  <span className={`${type}__text-error ${type}__text-error_hidden`}>
+                      Что-то пошло не так...
+                    </span>
+              }
+            </>
           ))}
         </div>
+
+        {type === 'profile'
+          &&  <span className={`${type}__text-error ${type}__text-error_hidden`}>
+                При обновлении профиля произошла ошибка.
+              </span>
+        }
 
       </Form>
     </>

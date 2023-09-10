@@ -22,6 +22,7 @@
 
 .page__button {
   border: none;
+  padding: 0;
 }
 
 .page__button_disabled {

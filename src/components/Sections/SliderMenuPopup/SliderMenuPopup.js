@@ -14,7 +14,7 @@ function SliderMenuPopup({ isPopupOpen, changePopupOpen }) {
     <div
       className={`popup ${isPopupOpen ? "popup_opened" : ""}`}
     >
-      <div className={`popup__container`}>
+      <div className="popup__container">
         <button
           className="popup__close page__button"
           type="button"

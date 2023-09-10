@@ -1,6 +1,6 @@
 function AboutProject() {
   return (
-    <section className="about">
+    <section className="about" id="about">
       <h2 className="about__title content__title">О проекте</h2>
 
       <div className="about__wrap">

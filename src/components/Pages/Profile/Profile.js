@@ -8,6 +8,13 @@ function Profile() {
   const currentUser = React.useContext(CurrentUserContext);
   const [inputChange, setInputChange] = React.useState({name: false, email:false});
   const [isSubmitActive, setIsSubmitActive] = React.useState(false);
+  const [isFormError, setIsFormError] = React.useState(false);
+
+  const extraButtonClass = `${
+    !isSubmitActive
+    ? 'profile__button'
+    : (!isFormError ? 'form__button form__button_type_active' : 'form__button form__button_type_disabled')
+  }`;
 
   React.useEffect(() => {
     if (inputChange.name === true || inputChange.email === true) {
@@ -15,7 +22,7 @@ function Profile() {
     } else {
       setIsSubmitActive(false);
     }
-  }, [inputChange])
+  }, [inputChange]);
 
   return (
     <section className="profile">
@@ -28,7 +35,7 @@ function Profile() {
         buttonValue={`${isSubmitActive ? 'Сохранить' : 'Редактировать'}`}
         inputChange={inputChange}
         setInputChange={setInputChange}
-        isSubmitActive={isSubmitActive}
+        extraButtonClass={extraButtonClass}
       />
 
       <Link

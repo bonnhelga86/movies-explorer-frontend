@@ -17,10 +17,11 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       {(location.pathname !== '/not-found')
         && <Header
-            isLoggedIn={isLoggedIn}
-            isPopupOpen={isSliderMenuPopupOpen}
-            changePopupOpen={setIsSliderMenuPopupOpen}
-          />}
+              isLoggedIn={isLoggedIn}
+              isPopupOpen={isSliderMenuPopupOpen}
+              changePopupOpen={setIsSliderMenuPopupOpen}
+            />
+      }
 
       <main className="content">
         <CustomRoutes />

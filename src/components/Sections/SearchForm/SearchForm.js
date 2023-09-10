@@ -6,7 +6,13 @@ import Input from '../../Elements/Input/Input';
 function SearchForm() {
   const [inputChange, setInputChange] = React.useState({search: false});
   const [isSubmitActive, setIsSubmitActive] = React.useState(false);
-  console.log('inputChange', inputChange);
+  const [isFormError, setIsFormError] = React.useState(false);
+
+  const extraButtonClass = `${
+    !isSubmitActive
+    ? 'form__button_disabled'
+    : (!isFormError ? '' : 'form__button_disabled')
+  }`;
 
   React.useEffect(() => {
     if (inputChange.search === true) {
@@ -14,7 +20,7 @@ function SearchForm() {
     } else {
       setIsSubmitActive(false);
     }
-  }, [inputChange])
+  }, [inputChange]);
 
   return (
     <section className="search" aria-label="Секция с поисковой строкой">
@@ -22,7 +28,7 @@ function SearchForm() {
         formName={'search'}
         type={'search'}
         buttonValue={'Найти'}
-        isSubmitActive={isSubmitActive}
+        extraButtonClass={extraButtonClass}
       >
         <Input
           id={'search-input'}

@@ -10,33 +10,19 @@ import NotFound from '../Pages/NotFound/NotFound';
 function CustomRoutes() {
   return (
     <Routes>
-      <Route path="/signup" element={
-        <Register />
-      }/>
+      <Route path="/signup" element={ <Register /> }/>
 
-      <Route path="/signin" element={
-        <Login />
-      }/>
+      <Route path="/signin" element={ <Login /> }/>
 
-      <Route path="/" element={
-        <Main />
-      }/>
+      <Route path="/" element={ <Main /> }/>
 
-      <Route path="/movies" element={
-        <Movies />
-      }/>
+      <Route path="/movies" element={ <Movies /> }/>
 
-      <Route path="/saved-movies" element={
-        <SavedMovies />
-      }/>
+      <Route path="/saved-movies" element={ <SavedMovies /> }/>
 
-      <Route path="/profile" element={
-        <Profile />
-      }/>
+      <Route path="/profile" element={ <Profile /> }/>
 
-      <Route path="/not-found" element={
-        <NotFound />
-      }/>
+      <Route path="/not-found" element={ <NotFound /> }/>
 
       <Route path="*" element={<Navigate to="/not-found" replace /> }/>
 

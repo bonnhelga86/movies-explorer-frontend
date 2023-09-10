@@ -1,9 +1,10 @@
 .error {
   text-align: center;
+  padding: 246px 0 60px;
 }
 
 .error__code {
-  margin: 246px 0 5px;
+  margin: 0 0 5px;
   font-size: 140px;
   font-weight: 400;
   line-height: 169px;
@@ -29,8 +30,9 @@
 }
 
 @media screen and (max-width: 790px) {
-  .error__code {
-    margin-top: 408px;
+  .error {
+    padding-top: 408px;
+    padding-bottom: 222px;
   }
 }
 
@@ -42,8 +44,12 @@
 }
 
 @media screen and (max-width: 440px) {
+  .error {
+    padding-top: 329px;
+    padding-bottom: 30px;
+  }
+
   .error__code {
-    margin-top: 329px;
     margin-bottom: 12px;
     font-size: 80px;
     line-height: 96px;
