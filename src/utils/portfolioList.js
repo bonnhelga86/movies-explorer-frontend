@@ -1,7 +1,7 @@
 export const portfolio = [
   {
     name: 'Статичный сайт',
-    path: 'https://bonnhelga86.github.io/project-travel-russian-2023/'
+    path: 'https://bonnhelga86.github.io/how-to-learn/'
   },
   {
     name: 'Адаптивный сайт',
@@ -9,6 +9,6 @@ export const portfolio = [
   },
   {
     name: 'Одностраничное приложение',
-    path: 'https://bonnhelga86.github.io/project-travel-russian-2023/'
+    path: 'https://bonnhelga86.github.io/react-mesto-api-full-gha/'
   }
 ];
