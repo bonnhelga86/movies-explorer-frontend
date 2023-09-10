@@ -25,7 +25,6 @@ function UserForm({
 
         <div className={`${type}__input-list-wrap`}>
           {inputList.map(input => (
-            <>
               <div key={`${formName}-${input.name}`} className={`${type}__input-wrap`}>
                 <label className={`${type}__label`} htmlFor={`${formName}-${input.name}`}>
                   {input.label}
@@ -41,13 +40,12 @@ function UserForm({
                   inputChange={inputChange}
                   setInputChange={setInputChange}
                 />
+                {type === 'sign'
+                  &&  <span className={`${type}__text-error ${type}__text-error_hidden`}>
+                        Что-то пошло не так...
+                      </span>
+                }
               </div>
-              {type === 'sign'
-                &&  <span className={`${type}__text-error ${type}__text-error_hidden`}>
-                      Что-то пошло не так...
-                    </span>
-              }
-            </>
           ))}
         </div>
 
