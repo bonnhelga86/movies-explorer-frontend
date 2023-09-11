@@ -115,7 +115,7 @@
 
 .header__slider-menu {
   display: none;
-  cursor: pointer;
+  background-color: inherit;
 }
 
 .header__slider-open {

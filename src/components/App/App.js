@@ -10,7 +10,7 @@ function App() {
   const location = useLocation();
 
   const [currentUser, setCurrentUser] = React.useState({name: 'Виталий', email: 'pochta@yandex.ru'});
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
   const [isSliderMenuPopupOpen, setIsSliderMenuPopupOpen] = React.useState(false);
 
   return (

@@ -4,10 +4,6 @@
 
 @import url("./components/App/App.css");
 
-@import url("./components/Elements/Form/Form.css");
-@import url("./components/Elements/FilterCheckbox/FilterCheckbox.css");
-@import url("./components/Elements/Preloader/Preloader.css");
-
 @import url("./components/Pages/NotFound/NotFound.css");
 
 @import url("./components/Sections/Header/Header.css");
@@ -26,3 +22,7 @@
 @import url("./components/Pages/Register/Register.css");
 
 @import url("./components/Sections/Footer/Footer.css");
+
+@import url("./components/Elements/Form/Form.css");
+@import url("./components/Elements/FilterCheckbox/FilterCheckbox.css");
+@import url("./components/Elements/Preloader/Preloader.css");

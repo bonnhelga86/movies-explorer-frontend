@@ -1,5 +1,4 @@
 import React from 'react';
-import FilterCheckbox from '../../Elements/FilterCheckbox/FilterCheckbox';
 import Form from '../../Elements/Form/Form';
 import Input from '../../Elements/Input/Input';
 
@@ -10,8 +9,8 @@ function SearchForm() {
 
   const extraButtonClass = `${
     !isSubmitActive
-    ? 'form__button_disabled'
-    : (!isFormError ? '' : 'form__button_disabled')
+    ? 'search__button_disabled'
+    : (!isFormError ? '' : 'search__button_disabled')
   }`;
 
   React.useEffect(() => {
@@ -34,15 +33,14 @@ function SearchForm() {
           id={'search-input'}
           Inputname={'search-input'}
           name={'search'}
-          className={'form__input search__input'}
+          className={'page__input search__input'}
           inputType={'text'}
           isAutoFill={false}
-          extraProps={{placeholder: 'Фильм'}}
+          extraProps={{placeholder: 'Введите поисковый запрос'}}
           inputChange={inputChange}
           setInputChange={setInputChange}
         />
       </Form>
-      <FilterCheckbox />
     </section>
   );
 }

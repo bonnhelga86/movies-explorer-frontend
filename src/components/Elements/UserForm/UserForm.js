@@ -33,7 +33,7 @@ function UserForm({
                   id={`${formName}-${input.name}`}
                   inputName={`${formName}-${input.name}`}
                   name={input.name}
-                  className={`form__input ${type}__input`}
+                  className={`page__input ${type}__input`}
                   inputType={input.type}
                   isAutoFill={type === 'profile' ? true : false}
                   extraProps={input.extraProps && input.extraProps}

@@ -23,7 +23,7 @@ function Login() {
   }, [inputChange]);
 
   return (
-    <div className="sign">
+    <section className="sign">
 
       <UserForm
         title={'Рады видеть!'}
@@ -43,7 +43,7 @@ function Login() {
         </Link>
       </p>
 
-    </div>
+    </section>
   );
 }
 

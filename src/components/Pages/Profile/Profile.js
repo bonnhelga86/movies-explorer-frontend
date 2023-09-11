@@ -12,7 +12,7 @@ function Profile() {
 
   const extraButtonClass = `${
     !isSubmitActive
-    ? 'profile__button'
+    ? ''
     : (!isFormError ? 'form__button form__button_type_active' : 'form__button form__button_type_disabled')
   }`;
 

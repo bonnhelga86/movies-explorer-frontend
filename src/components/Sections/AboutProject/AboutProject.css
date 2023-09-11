@@ -46,7 +46,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 14px;
+  margin: 0 0 14px;
 }
 
 .about__line_tech_back {

@@ -15,11 +15,10 @@
   aspect-ratio: 12/6.7112;
   object-fit: cover;
   display: block;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
 .movies__title-wrap {
-  position: relative;
   display: flex;
   justify-content: space-between;
   padding-bottom: 14px;
@@ -29,6 +28,7 @@
 
 .movies__title {
   margin: 0;
+  padding-top: 4px;
   width: 83.7%;
   height: 32px;
   font-size: 13px;
@@ -41,12 +41,9 @@
 }
 
 .movies__button {
-  position: absolute;
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  top: -4px;
-  right: 0;
 }
 
 .movies__button_type_likes {

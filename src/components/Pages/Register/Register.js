@@ -23,7 +23,7 @@ function Register() {
   }, [inputChange]);
 
   return (
-    <div className="sign">
+    <section className="sign">
 
       <UserForm
         title={'Добро пожаловать!'}
@@ -43,7 +43,7 @@ function Register() {
         </Link>
       </p>
 
-    </div>
+    </section>
   );
 }
 

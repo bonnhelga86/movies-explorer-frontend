@@ -44,6 +44,10 @@
   border-bottom: 1px solid #E8E8E8;
 }
 
+.sign__input:focus {
+  border-color: #3456F3;
+}
+
 .sign__input_type_error {
   color: #FF3055;
 }

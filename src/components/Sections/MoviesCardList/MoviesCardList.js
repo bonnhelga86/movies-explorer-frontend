@@ -66,6 +66,7 @@ function MoviesCardList({ movies, type, buttonLabel }) {
           ${moviesTotalCount === showMovies.length && 'movies__more_hidden'}`
         }
         onClick={() => setMoviesPage(++moviesPage)}
+        type="button"
       >
         Ещё
       </button>
