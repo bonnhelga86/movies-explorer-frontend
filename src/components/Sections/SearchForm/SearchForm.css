@@ -43,23 +43,24 @@
     padding: 80px 30px 61px;
   }
 
-  .search__form {
+  .search__input {
     margin-bottom: 30px;
   }
 }
 
 @media screen and (max-width: 675px) {
   .search {
-    padding: 85px 14px 51px;
-  }
-
-  .search__form {
-    padding-bottom: 8px;
-    margin-bottom: 41px;
+    padding: 90px 14px 51px;
   }
 
   .search__input {
+    padding-bottom: 15px;
+    margin-bottom: 41px;
     font-size: 18px;
     line-height: 22px;
+  }
+
+  .search__button {
+    top: -6px;
   }
 }

@@ -49,11 +49,15 @@ function UserForm({
           ))}
         </div>
 
-        {type === 'profile'
+        {/* {type === 'profile'
           &&  <span className={`${type}__text-error ${type}__text-error_hidden`}>
                 При обновлении профиля произошла ошибка.
               </span>
-        }
+        } */}
+
+        <span className="form__text-error form__text-error_hidden">
+          При обновлении профиля произошла ошибка.
+        </span>
 
       </Form>
     </>

@@ -36,7 +36,7 @@ function SearchForm() {
           className={'page__input search__input'}
           inputType={'text'}
           isAutoFill={false}
-          extraProps={{placeholder: 'Введите поисковый запрос'}}
+          extraProps={{placeholder: 'Введите запрос'}}
           inputChange={inputChange}
           setInputChange={setInputChange}
         />

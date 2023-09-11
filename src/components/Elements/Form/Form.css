@@ -7,10 +7,6 @@
   border-radius: 3px;
 }
 
-/* .form__button_disabled {
-  pointer-events: none;
-} */
-
 .form__button_type_active {
   background-color: #3456F3;
   color: #fff;
@@ -20,6 +16,20 @@
   pointer-events: none;
   background-color: #F8F8F8;
   color: #C2C2C2;
+}
+
+.form__text-error {
+  text-align: center;
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 400;
+  color: #FF004C;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.form__text-error_hidden {
+  visibility: hidden;
 }
 
 @media screen and (max-width: 487px) {

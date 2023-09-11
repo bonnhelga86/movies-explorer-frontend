@@ -4,14 +4,26 @@ import Header from '../Sections/Header/Header';
 import SliderMenuPopup from '../Sections/SliderMenuPopup/SliderMenuPopup';
 import CustomRoutes from '../CustomComponent/CustomRoutes';
 import Footer from '../Sections/Footer/Footer';
+import api from '../../utils/MoviesApi';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 function App() {
   const location = useLocation();
 
+  const [movies, setMovies] = React.useState([]);
   const [currentUser, setCurrentUser] = React.useState({name: 'Виталий', email: 'pochta@yandex.ru'});
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
   const [isSliderMenuPopupOpen, setIsSliderMenuPopupOpen] = React.useState(false);
+
+  React.useEffect(() => {
+      api.getMovies()
+      .then((moviesData) => {
+        setMovies(moviesData);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, [])
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -24,7 +36,7 @@ function App() {
       }
 
       <main className="content">
-        <CustomRoutes />
+        <CustomRoutes movies={movies} />
       </main>
 
       {(location.pathname === '/'

@@ -1,6 +1,5 @@
 import SearchForm from '../../Sections/SearchForm/SearchForm';
 import MoviesCardList from '../../Sections/MoviesCardList/MoviesCardList';
-import { movieList } from '../../../utils/movieList'
 
 function Movies({ movies }) {
   return (
@@ -8,7 +7,7 @@ function Movies({ movies }) {
       <SearchForm />
       <section className="movies" aria-label="Секция с фильмами">
         <MoviesCardList
-          movies={movieList}
+          movies={movies}
           type={'likes'}
           buttonLabel={'Лайкнуть'}
         />
