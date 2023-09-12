@@ -16,8 +16,6 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
   const [isSliderMenuPopupOpen, setIsSliderMenuPopupOpen] = React.useState(false);
 
-  console.log('searchQuery', searchQuery);
-
   React.useEffect(() => {
       api.getMovies()
       .then((moviesData) => {

@@ -9,6 +9,8 @@ function MoviesCardList({ movies, type, buttonLabel, searchQuery }) {
   const [showMovies, setShowMovies] = React.useState([]);
   const moviesTotalCount = movies.length;
 
+  console.log('showMovies', showMovies);
+
   const handlerMoviesCount = () => {
     const { initialMoviesCount, extraMoviesCount } = handler();
     setInitialMoviesCount(initialMoviesCount);
@@ -42,7 +44,10 @@ function MoviesCardList({ movies, type, buttonLabel, searchQuery }) {
         {showMovies.map(showMovie => (
           <MoviesCard
             key={showMovie.id}
-            title={showMovie.title}
+            title={showMovie.nameRU}
+            url={showMovie.image.url}
+            trailerLink={showMovie.trailerLink}
+            duration={showMovie.duration}
             likes={showMovie.likes}
             type={type}
             buttonLabel={buttonLabel}

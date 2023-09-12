@@ -3,7 +3,7 @@ import SearchForm from '../../Sections/SearchForm/SearchForm';
 import MoviesCardList from '../../Sections/MoviesCardList/MoviesCardList';
 
 function Movies({ movies, searchQuery, setSearchQuery }) {
-  const [filterMoviesList, setFilterMoviesList] = React.useState([]);
+  const [moviesForShow, setMoviesForShow] = React.useState([]);
 
   function getFilterMoviesList() {
     if (searchQuery) {
@@ -16,8 +16,8 @@ function Movies({ movies, searchQuery, setSearchQuery }) {
   }
 
   React.useEffect(() => {
-    // setFilterMoviesList(movies);
-    setFilterMoviesList(getFilterMoviesList());
+    setMoviesForShow(movies);
+    // setMoviesForShow(getFilterMoviesList());
 
 
   }, [movies, searchQuery]);
@@ -28,10 +28,10 @@ function Movies({ movies, searchQuery, setSearchQuery }) {
       <section className="movies" aria-label="Секция с фильмами">
       {!searchQuery
         ? <p className="movies__no-query">Здесь пока пусто. Найдите фильмы по поиску.</p>
-        : (filterMoviesList.length === 0)
+        : (moviesForShow.length === 0)
             ? <p className="movies__error-query">Ничего не найдено</p>
             : <MoviesCardList
-                movies={filterMoviesList}
+                movies={moviesForShow}
                 searchQuery={searchQuery}
                 type={'likes'}
                 buttonLabel={'Лайкнуть'}
