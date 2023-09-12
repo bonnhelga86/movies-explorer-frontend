@@ -2,24 +2,17 @@ import React from 'react';
 import Form from '../../Elements/Form/Form';
 import Input from '../../Elements/Input/Input';
 
-function SearchForm() {
-  const [inputChange, setInputChange] = React.useState({search: false});
-  const [isSubmitActive, setIsSubmitActive] = React.useState(false);
+function SearchForm({ setSearchQuery }) {
+  const searchInputRef = React.useRef();
   const [isFormError, setIsFormError] = React.useState(false);
+  const [isSubmitted, setIsSubmitted] = React.useState(false);
 
-  const extraButtonClass = `${
-    !isSubmitActive
-    ? 'search__button_disabled'
-    : (!isFormError ? '' : 'search__button_disabled')
-  }`;
-
-  React.useEffect(() => {
-    if (inputChange.search === true) {
-      setIsSubmitActive(true);
-    } else {
-      setIsSubmitActive(false);
-    }
-  }, [inputChange]);
+  const handleSubmit = (event) => {
+    console.log('handleSubmit');
+    event.preventDefault();
+    setSearchQuery(searchInputRef.current.value);
+    setIsSubmitted(true);
+  }
 
   return (
     <section className="search" aria-label="Секция с поисковой строкой">
@@ -27,7 +20,7 @@ function SearchForm() {
         formName={'search'}
         type={'search'}
         buttonValue={'Найти'}
-        extraButtonClass={extraButtonClass}
+        handleSubmit={handleSubmit}
       >
         <Input
           id={'search-input'}
@@ -37,8 +30,7 @@ function SearchForm() {
           inputType={'text'}
           isAutoFill={false}
           extraProps={{placeholder: 'Введите запрос'}}
-          inputChange={inputChange}
-          setInputChange={setInputChange}
+          searchInputRef={searchInputRef}
         />
       </Form>
     </section>

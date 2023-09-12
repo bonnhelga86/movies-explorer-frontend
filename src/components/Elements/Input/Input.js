@@ -9,8 +9,9 @@ function Input({
     inputType,
     isAutoFill,
     extraProps='',
-    inputChange,
-    setInputChange
+    inputChange='',
+    setInputChange='',
+    searchInputRef
   })
 {
   const currentUser = React.useContext(CurrentUserContext);
@@ -25,15 +26,18 @@ function Input({
   }, []);
 
   React.useEffect(() => {
-    if (currentValue !== initialValue) {
-      setInputChange({...inputChange, [name]: true});
-    } else {
-      setInputChange({...inputChange, [name]: false});
+    if (inputChange) {
+      if (currentValue !== initialValue) {
+        setInputChange({...inputChange, [name]: true});
+      } else {
+        setInputChange({...inputChange, [name]: false});
+      }
     }
   }, [currentValue]);
 
   return (
     <input
+      ref={searchInputRef}
       name={inputName}
       className={className}
       type={inputType}

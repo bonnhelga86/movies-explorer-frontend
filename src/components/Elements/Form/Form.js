@@ -1,10 +1,6 @@
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-function Form({ formName, type, buttonValue, extraButtonClass='', children }) {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  }
-
+function Form({ formName, type, buttonValue, extraButtonClass='', handleSubmit, children }) {
   return (
     <form name={formName+'-form'} className={type+'__form form'} noValidate>
       {children}

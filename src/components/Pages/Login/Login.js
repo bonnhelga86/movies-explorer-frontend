@@ -23,7 +23,7 @@ function Login() {
   }, [inputChange]);
 
   return (
-    <section className="sign">
+    <section className="sign" aria-label="Секция авторизации">
 
       <UserForm
         title={'Рады видеть!'}

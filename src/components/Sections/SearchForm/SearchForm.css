@@ -34,10 +34,6 @@
   justify-self: end;
 }
 
-.search__button_disabled {
-  pointer-events: none;
-}
-
 @media screen and (max-width: 960px) {
   .search {
     padding: 80px 30px 61px;

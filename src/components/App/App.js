@@ -10,10 +10,13 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 function App() {
   const location = useLocation();
 
+  const [searchQuery, setSearchQuery] = React.useState('');
   const [movies, setMovies] = React.useState([]);
   const [currentUser, setCurrentUser] = React.useState({name: 'Виталий', email: 'pochta@yandex.ru'});
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
   const [isSliderMenuPopupOpen, setIsSliderMenuPopupOpen] = React.useState(false);
+
+  console.log('searchQuery', searchQuery);
 
   React.useEffect(() => {
       api.getMovies()
@@ -23,7 +26,7 @@ function App() {
       .catch(error => {
         console.error(error);
       });
-  }, [])
+  }, [searchQuery])
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -36,7 +39,11 @@ function App() {
       }
 
       <main className="content">
-        <CustomRoutes movies={movies} />
+        <CustomRoutes
+          movies={movies}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
       </main>
 
       {(location.pathname === '/'

@@ -7,7 +7,7 @@ import Movies from '../Pages/Movies/Movies';
 import SavedMovies from '../Pages/SavedMovies/SavedMovies';
 import NotFound from '../Pages/NotFound/NotFound';
 
-function CustomRoutes({ movies }) {
+function CustomRoutes({ movies, searchQuery, setSearchQuery }) {
   return (
     <Routes>
       <Route path="/signup" element={ <Register /> }/>
@@ -16,7 +16,9 @@ function CustomRoutes({ movies }) {
 
       <Route path="/" element={ <Main /> }/>
 
-      <Route path="/movies" element={ <Movies movies={movies} /> }/>
+      <Route path="/movies" element={
+        <Movies movies={movies} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      }/>
 
       <Route path="/saved-movies" element={ <SavedMovies /> }/>
 

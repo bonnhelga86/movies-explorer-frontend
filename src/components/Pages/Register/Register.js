@@ -23,7 +23,7 @@ function Register() {
   }, [inputChange]);
 
   return (
-    <section className="sign">
+    <section className="sign" aria-label="Секция регистрации">
 
       <UserForm
         title={'Добро пожаловать!'}

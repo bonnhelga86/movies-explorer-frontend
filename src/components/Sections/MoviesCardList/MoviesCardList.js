@@ -1,45 +1,28 @@
 import React from 'react';
 import MoviesCard from '../../Elements/MoviesCard/MoviesCard';
+import { handler, mediaQuery } from '../../../utils/helpers';
 
-function MoviesCardList({ movies, type, buttonLabel }) {
+function MoviesCardList({ movies, type, buttonLabel, searchQuery }) {
   const [initialMoviesCount, setInitialMoviesCount] = React.useState(0);
-  const [extraMoviesCount, setExtraMoviesCount] = React.useState(4);
+  const [extraMoviesCount, setExtraMoviesCount] = React.useState(0);
   let [moviesPage, setMoviesPage] = React.useState(0);
   const [showMovies, setShowMovies] = React.useState([]);
   const moviesTotalCount = movies.length;
 
-  console.log('movies', movies);
-
-  const mediaQuery = [
-    window.matchMedia('(min-width: 1233px)'),
-    window.matchMedia('(max-width: 960px)'),
-    window.matchMedia('(max-width: 675px)')
-  ];
-
-  const handler = () => {
-    if (window.innerWidth >= 1233) {
-      setInitialMoviesCount(16);
-      setExtraMoviesCount(4);
-    } else if (window.innerWidth < 1233 && window.innerWidth > 960) {
-      setInitialMoviesCount(12);
-      setExtraMoviesCount(3);
-    } else if (window.innerWidth <= 960 && window.innerWidth > 675) {
-      setInitialMoviesCount(8);
-      setExtraMoviesCount(2);
-    } else if (window.innerWidth <= 675) {
-      setInitialMoviesCount(5);
-      setExtraMoviesCount(2);
-    }
-  };
+  const handlerMoviesCount = () => {
+    const { initialMoviesCount, extraMoviesCount } = handler();
+    setInitialMoviesCount(initialMoviesCount);
+    setExtraMoviesCount(extraMoviesCount);
+  }
 
   React.useEffect(() => {
     mediaQuery.map(item => {
-      item.addEventListener('change', handler);
+      item.addEventListener('change', handlerMoviesCount);
     });
-    handler();
+    handlerMoviesCount();
     return () => {
       mediaQuery.map(item => {
-        item.removeEventListener('change', handler);
+        item.removeEventListener('change', handlerMoviesCount);
       })
     }
   }, []);
@@ -50,23 +33,21 @@ function MoviesCardList({ movies, type, buttonLabel }) {
       ...showMovies,
       ...movies.slice((showMovies.length), endCount)
     ]);
-  }, [initialMoviesCount, moviesPage]);
+  }, [movies, initialMoviesCount, moviesPage]);
 
   return (
     <>
+
       <ul className="movies__list page__list">
-        {movies.length > 0
-          ? showMovies.map(showMovie => (
-              <MoviesCard
-                key={showMovie.id}
-                title={showMovie.title}
-                likes={showMovie.likes}
-                type={type}
-                buttonLabel={buttonLabel}
-              />
-            ))
-          : 'Ничего не нашлось'
-        }
+        {showMovies.map(showMovie => (
+          <MoviesCard
+            key={showMovie.id}
+            title={showMovie.title}
+            likes={showMovie.likes}
+            type={type}
+            buttonLabel={buttonLabel}
+          />
+        ))}
       </ul>
 
       <button
