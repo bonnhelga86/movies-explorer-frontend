@@ -2,13 +2,11 @@ import React from 'react';
 import Form from '../../Elements/Form/Form';
 import Input from '../../Elements/Input/Input';
 
-function SearchForm({ setSearchQuery }) {
+function SearchForm({ initialSearchQuery, setSearchQuery, isShort, setIsShort, setIsSubmitted }) {
   const searchInputRef = React.useRef();
   const [isFormError, setIsFormError] = React.useState(false);
-  const [isSubmitted, setIsSubmitted] = React.useState(false);
 
   const handleSubmit = (event) => {
-    console.log('handleSubmit');
     event.preventDefault();
     setSearchQuery(searchInputRef.current.value);
     setIsSubmitted(true);
@@ -20,6 +18,8 @@ function SearchForm({ setSearchQuery }) {
         formName={'search'}
         type={'search'}
         buttonValue={'Найти'}
+        isShort={isShort}
+        setIsShort={setIsShort}
         handleSubmit={handleSubmit}
       >
         <Input
@@ -28,7 +28,8 @@ function SearchForm({ setSearchQuery }) {
           name={'search'}
           className={'page__input search__input'}
           inputType={'text'}
-          isAutoFill={false}
+          formType={'search'}
+          initialSearchQuery={initialSearchQuery}
           extraProps={{placeholder: 'Введите запрос'}}
           searchInputRef={searchInputRef}
         />

@@ -9,8 +9,6 @@ function MoviesCardList({ movies, type, buttonLabel, searchQuery }) {
   const [showMovies, setShowMovies] = React.useState([]);
   const moviesTotalCount = movies.length;
 
-  console.log('showMovies', showMovies);
-
   const handlerMoviesCount = () => {
     const { initialMoviesCount, extraMoviesCount } = handler();
     setInitialMoviesCount(initialMoviesCount);
@@ -30,16 +28,19 @@ function MoviesCardList({ movies, type, buttonLabel, searchQuery }) {
   }, []);
 
   React.useEffect(() => {
+    setShowMovies(movies.slice(0, initialMoviesCount));
+  }, [movies, initialMoviesCount]);
+
+  React.useEffect(() => {
     const endCount = (initialMoviesCount + extraMoviesCount *moviesPage);
     setShowMovies([
       ...showMovies,
       ...movies.slice((showMovies.length), endCount)
     ]);
-  }, [movies, initialMoviesCount, moviesPage]);
+  }, [moviesPage]);
 
   return (
     <>
-
       <ul className="movies__list page__list">
         {showMovies.map(showMovie => (
           <MoviesCard

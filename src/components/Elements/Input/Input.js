@@ -7,7 +7,8 @@ function Input({
     name,
     className,
     inputType,
-    isAutoFill,
+    formType,
+    initialSearchQuery='',
     extraProps='',
     inputChange='',
     setInputChange='',
@@ -18,8 +19,9 @@ function Input({
   const [currentValue, setCurrentValue] = React.useState('');
   const [initialValue, setInitialValue] = React.useState('');
 
+
   React.useEffect(() => {
-    if (isAutoFill) {
+    if (formType === 'profile') {
       setCurrentValue(currentUser[name]);
       setInitialValue(currentUser[name]);
     }
@@ -34,6 +36,12 @@ function Input({
       }
     }
   }, [currentValue]);
+
+  React.useEffect(() => {
+    if (formType === 'search') {
+      setCurrentValue(initialSearchQuery);
+    }
+  }, [initialSearchQuery]);
 
   return (
     <input

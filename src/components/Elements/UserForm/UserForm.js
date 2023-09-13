@@ -35,7 +35,7 @@ function UserForm({
                   name={input.name}
                   className={`page__input ${type}__input`}
                   inputType={input.type}
-                  isAutoFill={type === 'profile' ? true : false}
+                  formType={type}
                   extraProps={input.extraProps && input.extraProps}
                   inputChange={inputChange}
                   setInputChange={setInputChange}
@@ -48,12 +48,6 @@ function UserForm({
               </div>
           ))}
         </div>
-
-        {/* {type === 'profile'
-          &&  <span className={`${type}__text-error ${type}__text-error_hidden`}>
-                При обновлении профиля произошла ошибка.
-              </span>
-        } */}
 
         <span className="form__text-error form__text-error_hidden">
           При обновлении профиля произошла ошибка.

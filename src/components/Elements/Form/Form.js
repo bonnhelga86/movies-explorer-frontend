@@ -1,6 +1,16 @@
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-function Form({ formName, type, buttonValue, extraButtonClass='', handleSubmit, children }) {
+function Form(
+  {
+    formName,
+    type,
+    buttonValue,
+    extraButtonClass='',
+    isShort,
+    setIsShort,
+    handleSubmit,
+    children
+  }) {
   return (
     <form name={formName+'-form'} className={type+'__form form'} noValidate>
       {children}
@@ -11,7 +21,7 @@ function Form({ formName, type, buttonValue, extraButtonClass='', handleSubmit, 
       >
         {buttonValue}
       </button>
-      {type === 'search' && <FilterCheckbox />}
+      {type === 'search' && <FilterCheckbox isShort={isShort} setIsShort={setIsShort} />}
     </form>
   );
 }
