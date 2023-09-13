@@ -49,11 +49,12 @@ function Movies() {
       setMoviesForShow(getFilterMoviesList());
       saveLocal();
       setInitialSearchQuery(searchQuery);
+      setInitialIsShort(isShort);
     }
   }, [movies]);
 
   React.useEffect(() => {
-    if(searchQuery !== initialSearchQuery || isShort !== initialisShort) {
+    if(searchQuery && (searchQuery !== initialSearchQuery || isShort !== initialisShort)) {
       setIsPreloader(true);
       api.getMovies()
       .then((moviesData) => {
@@ -68,8 +69,9 @@ function Movies() {
         setIsSubmitted(false);
         setIsPreloader(false);
       });
+    } else {
+      setIsSubmitted(false);
     }
-
 }, [isSubmitted])
 
   return (

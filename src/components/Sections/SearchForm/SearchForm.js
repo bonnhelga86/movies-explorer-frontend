@@ -8,8 +8,12 @@ function SearchForm({ initialSearchQuery, setSearchQuery, isShort, setIsShort, s
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setSearchQuery(searchInputRef.current.value);
-    setIsSubmitted(true);
+    if (searchInputRef.current.value) {
+      setSearchQuery(searchInputRef.current.value);
+      setIsSubmitted(true);
+    } else {
+      setIsFormError(true);
+    }
   }
 
   return (
@@ -34,6 +38,9 @@ function SearchForm({ initialSearchQuery, setSearchQuery, isShort, setIsShort, s
           searchInputRef={searchInputRef}
         />
       </Form>
+      <p className={`search__text-error ${!isFormError ? 'search__text-error_hidden' : ''}`}>
+        Нужно ввести ключевое слово
+      </p>
     </section>
   );
 }
