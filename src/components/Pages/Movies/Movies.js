@@ -1,11 +1,10 @@
 import React from 'react';
-import SearchForm from '../../Sections/SearchForm/SearchForm';
+import SearchForm from '../../Elements/SearchForm/SearchForm';
 import MoviesCardList from '../../Sections/MoviesCardList/MoviesCardList';
 import api from '../../../utils/MoviesApi';
 import Preloader from '../../Elements/Preloader/Preloader';
 
 function Movies() {
-  // localStorage.removeItem('token');
   const [movies, setMovies] = React.useState([]);
 
   const [initialSearchQuery, setInitialSearchQuery] = React.useState('');
@@ -18,13 +17,19 @@ function Movies() {
   const [isPreloader, setIsPreloader] = React.useState(false);
 
   React.useEffect(() => {
-    const localMovies = JSON.parse(localStorage.getItem('localMovies'));
-    const { localSearchQuery, isShort } = JSON.parse(localStorage.getItem('localQuery'));
-    setInitialSearchQuery(localSearchQuery);
-    setSearchQuery(localSearchQuery);
-    setInitialIsShort(isShort);
-    setIsShort(isShort);
-    setMoviesForShow(localMovies);
+    const jsonLocalMovies = localStorage.getItem('localMovies');
+    const jsonLocalQuery = localStorage.getItem('localQuery');
+
+    if (jsonLocalMovies && jsonLocalQuery) {
+      const localMovies = JSON.parse(jsonLocalMovies);
+      const { localSearchQuery, isShort } = JSON.parse(jsonLocalQuery);
+
+      setInitialSearchQuery(localSearchQuery);
+      setSearchQuery(localSearchQuery);
+      setInitialIsShort(isShort);
+      setIsShort(isShort);
+      setMoviesForShow(localMovies);
+    }
   }, []);
 
   function saveLocal() {

@@ -1,18 +1,36 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import UserForm from '../../Elements/UserForm/UserForm';
+import { login } from '../../../utils/MainApi';
 import { loginInputList } from '../../../utils/inputList';
 
-function Login() {
+function Login({ handleLoggedIn }) {
+  const navigate = useNavigate();
+
   const [inputChange, setInputChange] = React.useState({email: false, password: false});
   const [isSubmitActive, setIsSubmitActive] = React.useState(false);
   const [isFormError, setIsFormError] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState('');
 
   const extraButtonClass = `${
     !isSubmitActive
     ? 'form__button form__button_type_disabled'
     : (!isFormError ? 'form__button form__button_type_active' : 'form__button form__button_type_disabled')
   }`;
+
+  function handleLogin({ email, password }) {
+    login(email, password)
+        .then(data => {
+          if(data) {
+            handleLoggedIn(data);
+            navigate('/movies', {replace: true});
+          }
+        })
+        .catch(error => {
+          setIsFormError(true);
+          console.error(error);
+        });
+  }
 
   React.useEffect(() => {
     if (inputChange.email === true && inputChange.password === true) {
@@ -34,6 +52,8 @@ function Login() {
         inputChange={inputChange}
         setInputChange={setInputChange}
         extraButtonClass={extraButtonClass}
+        handleSubmit={handleLogin}
+        errorMessage={errorMessage}
       />
 
       <p className="sign__text">

@@ -1,8 +1,10 @@
 import React from 'react';
 import Form from '../../Elements/Form/Form';
-import Input from '../../Elements/Input/Input';
+import UserInput from '../UserInput/UserInput';
+import CurrentUserContext from '../../../contexts/CurrentUserContext';
 
-function UserForm({
+function UserForm(
+  {
     title,
     formName,
     type,
@@ -10,9 +12,25 @@ function UserForm({
     buttonValue,
     inputChange,
     setInputChange,
-    extraButtonClass
-  })
-{
+    extraButtonClass,
+    handleSubmit,
+    errorMessage
+  }
+){
+  const currentUser = React.useContext(CurrentUserContext);
+  const [userData, setUserData] = React.useState({});
+
+  const handleSubmitClick = (event, name, email, password) => {
+    event.preventDefault();
+    handleSubmit(userData);
+  };
+
+  React.useEffect(() => {
+    if (formName === 'profile') {
+      setUserData({name: currentUser.name, email: currentUser.email});
+    }
+  }, []);
+
   return (
     <>
       <h2 className={`${type}__title`}>{title}</h2>
@@ -21,6 +39,7 @@ function UserForm({
         type={type}
         buttonValue={buttonValue}
         extraButtonClass={extraButtonClass}
+        handleSubmitClick={handleSubmitClick}
       >
 
         <div className={`${type}__input-list-wrap`}>
@@ -29,16 +48,18 @@ function UserForm({
                 <label className={`${type}__label`} htmlFor={`${formName}-${input.name}`}>
                   {input.label}
                 </label>
-                <Input
+                <UserInput
                   id={`${formName}-${input.name}`}
                   inputName={`${formName}-${input.name}`}
                   name={input.name}
                   className={`page__input ${type}__input`}
                   inputType={input.type}
-                  formType={type}
+                  formType={formName}
                   extraProps={input.extraProps && input.extraProps}
                   inputChange={inputChange}
                   setInputChange={setInputChange}
+                  userData={userData}
+                  setUserData={setUserData}
                 />
                 {type === 'sign'
                   &&  <span className={`${type}__text-error ${type}__text-error_hidden`}>
@@ -49,8 +70,8 @@ function UserForm({
           ))}
         </div>
 
-        <span className="form__text-error form__text-error_hidden">
-          При обновлении профиля произошла ошибка.
+        <span className={`form__text-error ${errorMessage ? '' : 'form__text-error_hidden'}`}>
+          {errorMessage}
         </span>
 
       </Form>

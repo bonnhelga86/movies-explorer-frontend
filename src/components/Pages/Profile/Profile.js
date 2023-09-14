@@ -1,20 +1,34 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import UserForm from '../../Elements/UserForm/UserForm';
+import { updateUser } from '../../../utils/MainApi';
 import { profileInputList } from '../../../utils/inputList';
 import CurrentUserContext from '../../../contexts/CurrentUserContext';
 
-function Profile() {
+function Profile({ handleLogout, setCurrentUser }) {
   const currentUser = React.useContext(CurrentUserContext);
   const [inputChange, setInputChange] = React.useState({name: false, email:false});
   const [isSubmitActive, setIsSubmitActive] = React.useState(false);
   const [isFormError, setIsFormError] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState('');
 
   const extraButtonClass = `${
     !isSubmitActive
     ? ''
     : (!isFormError ? 'form__button form__button_type_active' : 'form__button form__button_type_disabled')
   }`;
+
+  function handleUpdateUser({ name, email }) {
+    updateUser(name, email)
+        .then(data => {
+          if(data) {
+            setCurrentUser(data);
+          }
+        })
+        .catch(error => {
+          setIsFormError(true);
+          console.error(error);
+        });
+  }
 
   React.useEffect(() => {
     if (inputChange.name === true || inputChange.email === true) {
@@ -36,14 +50,16 @@ function Profile() {
         inputChange={inputChange}
         setInputChange={setInputChange}
         extraButtonClass={extraButtonClass}
+        handleSubmit={handleUpdateUser}
+        errorMessage={errorMessage}
       />
 
-      <Link
-        to="/signin"
-        className={`profile__link page__link ${isSubmitActive ? 'profile__link_hidden' : ''}`}
+      <button
+        className={`profile__logout-button page__button ${isSubmitActive ? 'profile__logout-button_hidden' : ''}`}
+        onClick={handleLogout}
       >
         Выйти из аккаунта
-      </Link>
+      </button>
     </section>
   );
 }

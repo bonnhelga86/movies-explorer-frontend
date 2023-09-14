@@ -8,6 +8,7 @@
 }
 
 .form__button_type_active {
+  pointer-events: all;
   background-color: #3456F3;
   color: #fff;
 }
@@ -19,6 +20,7 @@
 }
 
 .form__text-error {
+  min-height: 13px;
   text-align: center;
   font-size: 11px;
   line-height: 13px;

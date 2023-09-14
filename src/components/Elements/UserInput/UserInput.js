@@ -1,33 +1,35 @@
 import React from "react";
 import CurrentUserContext from '../../../contexts/CurrentUserContext';
 
-function Input({
+function UserInput({
     id,
     inputName,
     name,
     className,
     inputType,
     formType,
-    initialSearchQuery='',
-    extraProps='',
-    inputChange='',
-    setInputChange='',
-    searchInputRef
+    extraProps,
+    inputChange,
+    setInputChange,
+    userData,
+    setUserData
   })
 {
   const currentUser = React.useContext(CurrentUserContext);
-  const [currentValue, setCurrentValue] = React.useState('');
-  const [initialValue, setInitialValue] = React.useState('');
+  const [currentValue, setCurrentValue] = React.useState(formType === 'profile' ? currentUser[name] : '');
+  const [initialValue, setInitialValue] = React.useState(formType === 'profile' ? currentUser[name] : '');
+
+  console.log('currentUser', currentUser);
+  console.log('currentValue', currentValue);
+  console.log('initialValue', initialValue);
 
 
   React.useEffect(() => {
-    if (formType === 'profile') {
-      setCurrentValue(currentUser[name]);
-      setInitialValue(currentUser[name]);
-    }
-  }, []);
+    setInitialValue(currentUser[name]);
+  }, [currentUser]);
 
   React.useEffect(() => {
+    setUserData({...userData, [name]: currentValue});
     if (inputChange) {
       if (currentValue !== initialValue) {
         setInputChange({...inputChange, [name]: true});
@@ -35,17 +37,10 @@ function Input({
         setInputChange({...inputChange, [name]: false});
       }
     }
-  }, [currentValue]);
-
-  React.useEffect(() => {
-    if (formType === 'search') {
-      setCurrentValue(initialSearchQuery);
-    }
-  }, [initialSearchQuery]);
+  }, [currentValue, initialValue]);
 
   return (
     <input
-      ref={searchInputRef}
       name={inputName}
       className={className}
       type={inputType}
@@ -58,4 +53,4 @@ function Input({
   );
 }
 
-export default Input;
+export default UserInput;

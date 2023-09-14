@@ -8,15 +8,19 @@ function Form(
     extraButtonClass='',
     isShort,
     setIsShort,
-    handleSubmit,
+    handleSubmitClick,
     children
   }) {
   return (
-    <form name={formName+'-form'} className={type+'__form form'} noValidate>
+    <form
+      name={formName+'-form'}
+      className={type+'__form form'}
+      onSubmit={handleSubmitClick}
+      noValidate
+    >
       {children}
       <button
         className={`page__button ${type}__button ${extraButtonClass}`}
-        onClick={handleSubmit}
         type="submit"
       >
         {buttonValue}

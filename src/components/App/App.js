@@ -1,30 +1,56 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../Sections/Header/Header';
 import SliderMenuPopup from '../Sections/SliderMenuPopup/SliderMenuPopup';
 import CustomRoutes from '../CustomComponent/CustomRoutes';
 import Footer from '../Sections/Footer/Footer';
-// import api from '../../utils/MoviesApi';
+import { logout, tokenCheck } from '../../utils/MainApi';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 function App() {
   const location = useLocation();
+  const navigate = useNavigate();
 
-  // const [searchQuery, setSearchQuery] = React.useState('');
-  // const [movies, setMovies] = React.useState([]);
-  const [currentUser, setCurrentUser] = React.useState({name: 'Виталий', email: 'pochta@yandex.ru'});
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [currentUser, setCurrentUser] = React.useState({});
   const [isSliderMenuPopupOpen, setIsSliderMenuPopupOpen] = React.useState(false);
 
-  // React.useEffect(() => {
-  //     api.getMovies()
-  //     .then((moviesData) => {
-  //       setMovies(moviesData);
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     });
-  // }, [searchQuery])
+  function handleLoggedIn(data) {
+    setCurrentUser(data);
+    setIsLoggedIn(true);
+  }
+
+  function isTokenCheck() {
+    tokenCheck()
+      .then(data => {
+        if(data) {
+          handleLoggedIn(data);
+        }
+      })
+      .catch(error => {
+        setIsLoggedIn(false);
+        console.error(error);
+      });
+  }
+
+  function handleLogout() {
+    logout()
+    .then(data => {
+      setIsLoggedIn(false);
+      setCurrentUser({});
+      localStorage.removeItem('localMovies');
+      localStorage.removeItem('localQuery');
+      navigate('/signin', {replace: true});
+      return data;
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  }
+
+  React.useEffect(() => {
+    isTokenCheck();
+  }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -37,7 +63,11 @@ function App() {
       }
 
       <main className="content">
-        <CustomRoutes />
+        <CustomRoutes
+          handleLoggedIn={handleLoggedIn}
+          handleLogout={handleLogout}
+          setCurrentUser={setCurrentUser}
+        />
       </main>
 
       {(location.pathname === '/'

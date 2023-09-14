@@ -71,14 +71,15 @@
   background-color: inherit;
 }
 
-.profile__link {
+.profile__logout-button {
   font-size: 13px;
   line-height: 16px;
   font-weight: 500;
   color: #FF3055;
+  background-color: inherit;
 }
 
-.profile__link_hidden {
+.profile__logout-button_hidden {
   display: none;
 }
 

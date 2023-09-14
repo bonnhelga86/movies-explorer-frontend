@@ -1,6 +1,6 @@
 import React from 'react';
 import Form from '../../Elements/Form/Form';
-import Input from '../../Elements/Input/Input';
+import SearchInput from '../../Elements/SearchInput/SearchInput';
 
 function SearchForm({ initialSearchQuery, setSearchQuery, isShort, setIsShort, setIsSubmitted }) {
   const searchInputRef = React.useRef();
@@ -24,18 +24,11 @@ function SearchForm({ initialSearchQuery, setSearchQuery, isShort, setIsShort, s
         buttonValue={'Найти'}
         isShort={isShort}
         setIsShort={setIsShort}
-        handleSubmit={handleSubmit}
+        handleSubmitClick={handleSubmit}
       >
-        <Input
-          id={'search-input'}
-          Inputname={'search-input'}
-          name={'search'}
-          className={'page__input search__input'}
-          inputType={'text'}
-          formType={'search'}
+        <SearchInput
           initialSearchQuery={initialSearchQuery}
-          extraProps={{placeholder: 'Введите запрос'}}
-          searchInputRef={searchInputRef}
+          inputRef={searchInputRef}
         />
       </Form>
       <p className={`search__text-error ${!isFormError ? 'search__text-error_hidden' : ''}`}>

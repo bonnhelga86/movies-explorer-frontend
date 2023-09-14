@@ -7,12 +7,12 @@ import Movies from '../Pages/Movies/Movies';
 import SavedMovies from '../Pages/SavedMovies/SavedMovies';
 import NotFound from '../Pages/NotFound/NotFound';
 
-function CustomRoutes({ movies }) {
+function CustomRoutes({ handleLoggedIn, handleLogout, setCurrentUser }) {
   return (
     <Routes>
-      <Route path="/signup" element={ <Register /> }/>
+      <Route path="/signup" element={ <Register handleLoggedIn={handleLoggedIn} /> }/>
 
-      <Route path="/signin" element={ <Login /> }/>
+      <Route path="/signin" element={ <Login handleLoggedIn={handleLoggedIn} /> }/>
 
       <Route path="/" element={ <Main /> }/>
 
@@ -20,7 +20,9 @@ function CustomRoutes({ movies }) {
 
       <Route path="/saved-movies" element={ <SavedMovies /> }/>
 
-      <Route path="/profile" element={ <Profile /> }/>
+      <Route path="/profile" element={
+        <Profile handleLogout={handleLogout} setCurrentUser={setCurrentUser} />
+      }/>
 
       <Route path="/not-found" element={ <NotFound /> }/>
 

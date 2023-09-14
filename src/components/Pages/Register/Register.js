@@ -1,12 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import UserForm from '../../Elements/UserForm/UserForm';
+import { register, login } from '../../../utils/MainApi';
 import { registerInputList } from '../../../utils/inputList';
 
-function Register() {
+function Register({ handleLoggedIn }) {
+  const navigate = useNavigate();
+
   const [inputChange, setInputChange] = React.useState({name: false, email: false, password: false});
   const [isSubmitActive, setIsSubmitActive] = React.useState(false);
   const [isFormError, setIsFormError] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState('');
 
   const extraButtonClass = `${
     !isSubmitActive
@@ -14,13 +18,42 @@ function Register() {
     : (!isFormError ? 'form__button form__button_type_active' : 'form__button form__button_type_disabled')
   }`;
 
+  function handleRegister({ name, email, password }) {
+    register(name, email, password)
+        .then(data => {
+          if(data) {
+            login(data.email, password)
+              .then(data => {
+                if(data) {
+                  handleLoggedIn(data);
+                  navigate('/movies', {replace: true});
+                }
+              })
+          }
+        })
+        .catch(error => {
+          setIsFormError(true);
+          setErrorMessage(error);
+        });
+  }
+
   React.useEffect(() => {
     if (inputChange.name === true && inputChange.email === true && inputChange.password === true) {
       setIsSubmitActive(true);
+      setIsFormError(false);
+      setErrorMessage('');
     } else {
       setIsSubmitActive(false);
     }
   }, [inputChange]);
+
+  React.useEffect(() => {
+    if (errorMessage) {
+      setIsFormError(true);
+    } else {
+      setIsFormError(false);
+    }
+  }, [errorMessage]);
 
   return (
     <section className="sign" aria-label="Секция регистрации">
@@ -34,6 +67,8 @@ function Register() {
         inputChange={inputChange}
         setInputChange={setInputChange}
         extraButtonClass={extraButtonClass}
+        handleSubmit={handleRegister}
+        errorMessage={errorMessage}
       />
 
       <p className="sign__text">

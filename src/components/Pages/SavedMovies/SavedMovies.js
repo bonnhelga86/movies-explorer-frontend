@@ -1,4 +1,4 @@
-import SearchForm from '../../Sections/SearchForm/SearchForm';
+import SearchForm from '../../Elements/SearchForm/SearchForm';
 import MoviesCardList from '../../Sections/MoviesCardList/MoviesCardList';
 import { movieList } from '../../../utils/movieList';
 
