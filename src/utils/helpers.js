@@ -27,3 +27,33 @@ export const mediaQuery = [
   window.matchMedia('(max-width: 960px)'),
   window.matchMedia('(max-width: 675px)')
 ];
+
+export function prepareMovies(movies) {
+  return movies.map(movie => {
+    return {
+      country: movie.country,
+      director: movie.director,
+      duration: movie.duration,
+      year: movie.year,
+      description: movie.description,
+      image: `https://api.nomoreparties.co${movie.image.url}`,
+      trailerLink: movie.trailerLink,
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN,
+      thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+      movieId: movie.id,
+    }
+  })
+};
+
+export function getFilterMoviesList(movies, searchQuery, isShort) {
+  if (searchQuery) {
+    return movies.filter((movie) => {
+      return (  (movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
+                  || movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
+                )
+                && (isShort ? movie.duration <= 40 : true)
+              );
+    });
+  }
+}

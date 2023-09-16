@@ -98,8 +98,8 @@ export const saveMovie = (movieData) => {
   }).then(res => getResponseData(res));
 }
 
-export const deleteMovie = (cardId) => {
-  return fetch(`${baseUrl}/movies/${cardId}`, {
+export const deleteMovie = (id) => {
+  return fetch(`${baseUrl}/movies/${id}`, {
     method: 'DELETE',
     credentials: 'include',
   }).then(res => getResponseData(res));

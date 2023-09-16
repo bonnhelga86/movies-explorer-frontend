@@ -24,7 +24,6 @@ function Login({ handleLoggedIn }) {
           if(data) {
             tokenCheck()
               .then((data) => {
-                console.log('data', data);
                 handleLoggedIn(data);
                 navigate('/movies', {replace: true});
               })

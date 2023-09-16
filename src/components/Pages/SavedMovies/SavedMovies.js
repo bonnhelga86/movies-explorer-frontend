@@ -2,26 +2,20 @@ import React from 'react';
 import SearchForm from '../../Elements/SearchForm/SearchForm';
 import MoviesCardList from '../../Sections/MoviesCardList/MoviesCardList';
 import Preloader from '../../Elements/Preloader/Preloader';
-import { getMovies, deleteMovie } from '../../../utils/MainApi';
+import { getLikesMovies, deleteLikesMovie } from '../../../utils/apiHelpers';
 
 function SavedMovies() {
   const [movies, setMovies] = React.useState([]);
   const [isPreloader, setIsPreloader] = React.useState(false);
 
+  function handleDeleteMovie(movie) {
+    deleteLikesMovie(movie._id, setMovies);
+  }
+
   React.useEffect(() => {
     setIsPreloader(true);
-    getMovies()
-    .then(moviesData => {
-      setMovies(moviesData);
-    })
-    .catch(() => {
-      console.error(`Во время запроса произошла ошибка. Возможно, проблема с соединением
-                      или сервер недоступен. Подождите немного и попробуйте ещё раз.`
-      );
-    })
-    .finally(() => {
-      setIsPreloader(false);
-    });
+    getLikesMovies(setMovies);
+    setIsPreloader(false);
   }, []);
 
   return (
@@ -36,6 +30,7 @@ function SavedMovies() {
                 movies={movies}
                 type={'dislikes'}
                 buttonLabel={'Удалить из списка'}
+                handleLikesMovie={handleDeleteMovie}
               />
         }
       </section>

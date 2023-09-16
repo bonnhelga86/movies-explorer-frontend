@@ -1,9 +1,10 @@
 import React from 'react';
-import SearchForm from '../../Elements/SearchForm/SearchForm';
 import MoviesCardList from '../../Sections/MoviesCardList/MoviesCardList';
-import api from '../../../utils/MoviesApi';
+import SearchForm from '../../Elements/SearchForm/SearchForm';
 import Preloader from '../../Elements/Preloader/Preloader';
-import { getMovies, saveMovie, deleteMovie } from '../../../utils/MainApi';
+import api from '../../../utils/MoviesApi';
+import { prepareMovies, getFilterMoviesList } from '../../../utils/helpers';
+import { getLikesMovies, saveLikesMovie, deleteLikesMovie } from '../../../utils/apiHelpers';
 
 function Movies() {
   const [movies, setMovies] = React.useState([]);
@@ -17,24 +18,6 @@ function Movies() {
 
   const [isSubmitted, setIsSubmitted] = React.useState(false);
   const [isPreloader, setIsPreloader] = React.useState(false);
-
-  function prepareMovies(movies) {
-    return movies.map(movie => {
-      return {
-        country: movie.country,
-        director: movie.director,
-        duration: movie.duration,
-        year: movie.year,
-        description: movie.description,
-        image: `https://api.nomoreparties.co${movie.image.url}`,
-        trailerLink: movie.trailerLink,
-        nameRU: movie.nameRU,
-        nameEN: movie.nameEN,
-        thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
-        movieId: movie.id,
-      }
-    })
-  }
 
   function saveLocal() {
     localStorage.setItem('localMovies', JSON.stringify(moviesForShow));
@@ -55,46 +38,6 @@ function Movies() {
     }
   }
 
-  function getFilterMoviesList() {
-    if (searchQuery) {
-      return movies.filter((movie) => {
-        return (  (movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
-                    || movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
-                  )
-                  && (isShort ? movie.duration <= 40 : true)
-                );
-      });
-    }
-  }
-
-  function handleGetLikesMovies() {
-    getMovies()
-    .then(moviesData => {
-      setLikesMovies(moviesData);
-    })
-    .catch(() => {
-      console.error(`Во время запроса произошла ошибка. Возможно, проблема с соединением
-                      или сервер недоступен. Подождите немного и попробуйте ещё раз.`
-      );
-    });
-  }
-
-  function handleSaveLikesMovie({ isLiked, ...movie}) {
-    saveMovie(movie)
-    .then(data => {
-      if(data) {
-        setLikesMovies([...likesMovies, data]);
-      }
-    })
-    .catch(error => {
-      console.error(error);
-    });
-  }
-
-  function handleDeleteLikesMovie(id) {
-    console.log('delete movie', id);
-  }
-
   function handleSetLikesStatus(movies) {
     const likedMoviesIdList = likesMovies.map(({movieId}) => movieId);
     movies.forEach((movie) => movie.isLiked = likedMoviesIdList.includes(movie.movieId));
@@ -102,16 +45,17 @@ function Movies() {
   }
 
   function handleLikesMovie(movie) {
-    if ((likesMovies.filter(likesMovie => likesMovie.movieId === movie.id)).length > 0) {
-      handleDeleteLikesMovie(movie.id);
+    const likesFilter = likesMovies.filter(likesMovie => likesMovie.movieId === movie.movieId);
+    if (likesFilter.length > 0) {
+      deleteLikesMovie(likesFilter[0]._id, setLikesMovies);
     } else {
-      handleSaveLikesMovie(movie);
+      saveLikesMovie(movie, likesMovies, setLikesMovies);
     }
   }
 
   React.useEffect(() => {
     getLocal();
-    handleGetLikesMovies();
+    getLikesMovies(setLikesMovies);
   }, []);
 
   React.useEffect(() => {
@@ -123,8 +67,8 @@ function Movies() {
 
   React.useEffect(() => {
     if(movies.length > 0) {
-      handleGetLikesMovies();
-      const filterMovies = prepareMovies(getFilterMoviesList());
+      getLikesMovies(setLikesMovies);
+      const filterMovies = prepareMovies(getFilterMoviesList(movies, searchQuery, isShort));
       setMoviesForShow(handleSetLikesStatus(filterMovies));
       saveLocal();
       setInitialSearchQuery(searchQuery);
@@ -171,7 +115,6 @@ function Movies() {
                 ? <p className="movies__query">Ничего не найдено</p>
                 : <MoviesCardList
                     movies={moviesForShow}
-                    likesMovies={likesMovies}
                     type={'likes'}
                     buttonLabel={'Лайкнуть'}
                     handleLikesMovie={handleLikesMovie}
