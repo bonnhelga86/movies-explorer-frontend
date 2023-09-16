@@ -20,16 +20,33 @@ function UserForm(
   const currentUser = React.useContext(CurrentUserContext);
   const [userData, setUserData] = React.useState({});
 
-  const handleSubmitClick = (event, name, email, password) => {
+  const handleSubmitClick = (event) => {
     event.preventDefault();
     handleSubmit(userData);
   };
 
+  function setInputProps(input) {
+    const inputProps = {
+      id: `${formName}-${input.name}`,
+      inputName: `${formName}-${input.name}`,
+      name: input.name,
+      className: `page__input ${type}__input`,
+      inputType: input.type,
+      formType: formName,
+      extraProps: input.extraProps && input.extraProps,
+      inputChange: inputChange,
+      setInputChange: setInputChange,
+      userData: userData,
+      changeUserData: setUserData
+    };
+    return inputProps;
+  }
+
   React.useEffect(() => {
-    if (formName === 'profile') {
-      setUserData({name: currentUser.name, email: currentUser.email});
-    }
-  }, []);
+    if (formName === 'profile' && Object.keys(currentUser).length > 0) {
+        setUserData({name: currentUser.name, email: currentUser.email});
+      }
+  }, [currentUser]);
 
   return (
     <>
@@ -45,22 +62,16 @@ function UserForm(
         <div className={`${type}__input-list-wrap`}>
           {inputList.map(input => (
               <div key={`${formName}-${input.name}`} className={`${type}__input-wrap`}>
+
                 <label className={`${type}__label`} htmlFor={`${formName}-${input.name}`}>
                   {input.label}
                 </label>
-                <UserInput
-                  id={`${formName}-${input.name}`}
-                  inputName={`${formName}-${input.name}`}
-                  name={input.name}
-                  className={`page__input ${type}__input`}
-                  inputType={input.type}
-                  formType={formName}
-                  extraProps={input.extraProps && input.extraProps}
-                  inputChange={inputChange}
-                  setInputChange={setInputChange}
-                  userData={userData}
-                  setUserData={setUserData}
-                />
+
+                {formName === 'profile'
+                  ? (Object.keys(userData).length > 0 && <UserInput {...setInputProps(input)} />)
+                  : <UserInput {...setInputProps(input)} />
+                }
+
                 {type === 'sign'
                   &&  <span className={`${type}__text-error ${type}__text-error_hidden`}>
                         Что-то пошло не так...

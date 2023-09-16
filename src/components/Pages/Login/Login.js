@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import UserForm from '../../Elements/UserForm/UserForm';
-import { login } from '../../../utils/MainApi';
+import { login, tokenCheck } from '../../../utils/MainApi';
 import { loginInputList } from '../../../utils/inputList';
 
 function Login({ handleLoggedIn }) {
@@ -22,19 +22,25 @@ function Login({ handleLoggedIn }) {
     login(email, password)
         .then(data => {
           if(data) {
-            handleLoggedIn(data);
-            navigate('/movies', {replace: true});
+            tokenCheck()
+              .then((data) => {
+                console.log('data', data);
+                handleLoggedIn(data);
+                navigate('/movies', {replace: true});
+              })
           }
         })
         .catch(error => {
           setIsFormError(true);
-          console.error(error);
+          setErrorMessage(error);
         });
   }
 
   React.useEffect(() => {
     if (inputChange.email === true && inputChange.password === true) {
       setIsSubmitActive(true);
+      setIsFormError(false);
+      setErrorMessage('');
     } else {
       setIsSubmitActive(false);
     }

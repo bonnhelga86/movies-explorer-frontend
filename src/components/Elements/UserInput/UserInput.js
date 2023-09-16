@@ -1,5 +1,4 @@
 import React from "react";
-import CurrentUserContext from '../../../contexts/CurrentUserContext';
 
 function UserInput({
     id,
@@ -12,24 +11,14 @@ function UserInput({
     inputChange,
     setInputChange,
     userData,
-    setUserData
+    changeUserData
   })
 {
-  const currentUser = React.useContext(CurrentUserContext);
-  const [currentValue, setCurrentValue] = React.useState(formType === 'profile' ? currentUser[name] : '');
-  const [initialValue, setInitialValue] = React.useState(formType === 'profile' ? currentUser[name] : '');
-
-  console.log('currentUser', currentUser);
-  console.log('currentValue', currentValue);
-  console.log('initialValue', initialValue);
-
+  const [currentValue, setCurrentValue] = React.useState(formType === 'profile' ? userData[name] : '');
+  const [initialValue, setInitialValue] = React.useState(formType === 'profile' ? userData[name] : '');
 
   React.useEffect(() => {
-    setInitialValue(currentUser[name]);
-  }, [currentUser]);
-
-  React.useEffect(() => {
-    setUserData({...userData, [name]: currentValue});
+    changeUserData({...userData, [name]: currentValue});
     if (inputChange) {
       if (currentValue !== initialValue) {
         setInputChange({...inputChange, [name]: true});

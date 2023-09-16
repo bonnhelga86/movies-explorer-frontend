@@ -47,14 +47,6 @@ function Register({ handleLoggedIn }) {
     }
   }, [inputChange]);
 
-  React.useEffect(() => {
-    if (errorMessage) {
-      setIsFormError(true);
-    } else {
-      setIsFormError(false);
-    }
-  }, [errorMessage]);
-
   return (
     <section className="sign" aria-label="Секция регистрации">
 

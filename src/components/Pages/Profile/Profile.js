@@ -26,11 +26,13 @@ function Profile({ handleLogout, setCurrentUser }) {
         })
         .catch(error => {
           setIsFormError(true);
-          console.error(error);
+          setErrorMessage(error);
         });
   }
 
   React.useEffect(() => {
+    setIsFormError(false);
+    setErrorMessage('');
     if (inputChange.name === true || inputChange.email === true) {
       setIsSubmitActive(true);
     } else {

@@ -2,7 +2,7 @@ import React from 'react';
 import MoviesCard from '../../Elements/MoviesCard/MoviesCard';
 import { handler, mediaQuery } from '../../../utils/helpers';
 
-function MoviesCardList({ movies, type, buttonLabel, searchQuery }) {
+function MoviesCardList({ movies, likesMovies=[], type, buttonLabel, handleLikesMovie }) {
   const [initialMoviesCount, setInitialMoviesCount] = React.useState(0);
   const [extraMoviesCount, setExtraMoviesCount] = React.useState(0);
   let [moviesPage, setMoviesPage] = React.useState(0);
@@ -44,14 +44,12 @@ function MoviesCardList({ movies, type, buttonLabel, searchQuery }) {
       <ul className="movies__list page__list">
         {showMovies.map(showMovie => (
           <MoviesCard
-            key={showMovie.id}
-            title={showMovie.nameRU}
-            url={showMovie.image.url}
-            trailerLink={showMovie.trailerLink}
-            duration={showMovie.duration}
-            likes={showMovie.likes}
+            key={showMovie.nameRU}
+            movie={showMovie}
+            likes={showMovie.isLiked ? 'likes' : 'unlikes'}
             type={type}
             buttonLabel={buttonLabel}
+            handleLikesMovie={handleLikesMovie}
           />
         ))}
       </ul>
