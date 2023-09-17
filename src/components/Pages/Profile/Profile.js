@@ -6,6 +6,8 @@ import CurrentUserContext from '../../../contexts/CurrentUserContext';
 
 function Profile({ handleLogout, setCurrentUser }) {
   const currentUser = React.useContext(CurrentUserContext);
+  const [initialInputValue, setInitialInputValue] = React.useState({});
+
   const [inputChange, setInputChange] = React.useState({name: false, email:false});
   const [isSubmitActive, setIsSubmitActive] = React.useState(false);
   const [isFormError, setIsFormError] = React.useState(false);
@@ -22,6 +24,7 @@ function Profile({ handleLogout, setCurrentUser }) {
         .then(data => {
           if(data) {
             setCurrentUser(data);
+            setInitialInputValue(data)
           }
         })
         .catch(error => {
@@ -49,6 +52,7 @@ function Profile({ handleLogout, setCurrentUser }) {
         type={'profile'}
         inputList = {profileInputList}
         buttonValue={`${isSubmitActive ? 'Сохранить' : 'Редактировать'}`}
+        initialInputValue={initialInputValue}
         inputChange={inputChange}
         setInputChange={setInputChange}
         extraButtonClass={extraButtonClass}

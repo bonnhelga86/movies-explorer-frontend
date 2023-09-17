@@ -13,14 +13,14 @@ function Movies() {
 
   const [initialSearchQuery, setInitialSearchQuery] = React.useState('');
   const [searchQuery, setSearchQuery] = React.useState('');
-  const [initialisShort, setInitialIsShort] = React.useState('');
+  const [initialIsShort, setInitialIsShort] = React.useState(false);
   const [isShort, setIsShort] = React.useState(false);
 
   const [isSubmitted, setIsSubmitted] = React.useState(false);
   const [isPreloader, setIsPreloader] = React.useState(false);
 
-  function saveLocal() {
-    localStorage.setItem('localMovies', JSON.stringify(moviesForShow));
+  function saveLocal(filterMoviesWithLikes) {
+    localStorage.setItem('localMovies', JSON.stringify(filterMoviesWithLikes));
     localStorage.setItem('localQuery', JSON.stringify({localSearchQuery: searchQuery, isShort}));
   }
 
@@ -69,18 +69,19 @@ function Movies() {
     if(movies.length > 0) {
       getLikesMovies(setLikesMovies);
       const filterMovies = prepareMovies(getFilterMoviesList(movies, searchQuery, isShort));
-      setMoviesForShow(handleSetLikesStatus(filterMovies));
-      saveLocal();
-      setInitialSearchQuery(searchQuery);
-      setInitialIsShort(isShort);
+      const filterMoviesWithLikes = handleSetLikesStatus(filterMovies);
+      setMoviesForShow(filterMoviesWithLikes);
+      saveLocal(filterMoviesWithLikes);
     }
   }, [movies]);
 
   React.useEffect(() => {
-    if(searchQuery && (searchQuery !== initialSearchQuery || isShort !== initialisShort)) {
+    if(searchQuery && (searchQuery !== initialSearchQuery || isShort !== initialIsShort)) {
       setIsPreloader(true);
       api.getMovies()
       .then((moviesData) => {
+        setInitialSearchQuery(searchQuery);
+        setInitialIsShort(isShort);
         setMovies(moviesData);
       })
       .catch(() => {

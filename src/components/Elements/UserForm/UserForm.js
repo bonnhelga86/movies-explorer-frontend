@@ -10,6 +10,7 @@ function UserForm(
     type,
     inputList,
     buttonValue,
+    initialInputValue,
     inputChange,
     setInputChange,
     extraButtonClass,
@@ -34,6 +35,7 @@ function UserForm(
       inputType: input.type,
       formType: formName,
       extraProps: input.extraProps && input.extraProps,
+      initialInputValue: initialInputValue,
       inputChange: inputChange,
       setInputChange: setInputChange,
       userData: userData,
@@ -43,6 +45,7 @@ function UserForm(
   }
 
   React.useEffect(() => {
+    console.log('currentUser', currentUser);
     if (formName === 'profile' && Object.keys(currentUser).length > 0) {
         setUserData({name: currentUser.name, email: currentUser.email});
       }

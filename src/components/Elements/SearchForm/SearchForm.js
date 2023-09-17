@@ -10,6 +10,7 @@ function SearchForm({ initialSearchQuery, setSearchQuery, isShort, setIsShort, s
     event.preventDefault();
     if (searchInputRef.current.value) {
       setSearchQuery(searchInputRef.current.value);
+      setIsFormError(false);
       setIsSubmitted(true);
     } else {
       setIsFormError(true);

@@ -2,14 +2,28 @@ import React from 'react';
 import SearchForm from '../../Elements/SearchForm/SearchForm';
 import MoviesCardList from '../../Sections/MoviesCardList/MoviesCardList';
 import Preloader from '../../Elements/Preloader/Preloader';
+import { getFilterMoviesList } from '../../../utils/helpers';
 import { getLikesMovies, deleteLikesMovie } from '../../../utils/apiHelpers';
 
 function SavedMovies() {
   const [movies, setMovies] = React.useState([]);
+  const [searchMovies, setSearchMovies] = React.useState([]);
+
+  const [initialSearchQuery, setInitialSearchQuery] = React.useState('');
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [initialIsShort, setInitialIsShort] = React.useState(false);
+  const [isShort, setIsShort] = React.useState(false);
+
+  const [isSubmitted, setIsSubmitted] = React.useState(false);
   const [isPreloader, setIsPreloader] = React.useState(false);
 
   function handleDeleteMovie(movie) {
     deleteLikesMovie(movie._id, setMovies);
+  }
+
+  function handleFilterMovies() {
+    const filterMovies = getFilterMoviesList(movies, searchQuery, isShort);
+    setSearchMovies(filterMovies);
   }
 
   React.useEffect(() => {
@@ -18,16 +32,43 @@ function SavedMovies() {
     setIsPreloader(false);
   }, []);
 
+  React.useEffect(() => {
+    if(movies.length > 0) {
+      if (searchQuery) {
+        handleFilterMovies();
+      } else {
+        setSearchMovies(movies);
+      }
+    }
+  }, [movies]);
+
+  React.useEffect(() => {
+    if(searchQuery && (searchQuery !== initialSearchQuery || isShort !== initialIsShort)) {
+      setIsPreloader(true);
+      setInitialSearchQuery(searchQuery);
+      setInitialIsShort(isShort);
+      handleFilterMovies();
+    }
+    setIsSubmitted(false);
+    setIsPreloader(false);
+  }, [isSubmitted])
+
   return (
     <>
-      <SearchForm />
+      <SearchForm
+        initialSearchQuery={initialSearchQuery}
+        setSearchQuery={setSearchQuery}
+        isShort={isShort}
+        setIsShort={setIsShort}
+        setIsSubmitted={setIsSubmitted}
+      />
       <section className="movies saved-movies" aria-label="Секция с сохраненными фильмами">
         {isPreloader
           ? <Preloader />
-          : (movies.length === 0)
+          : (searchMovies.length === 0)
             ? <p className="movies__query">Ничего не найдено</p>
             : <MoviesCardList
-                movies={movies}
+                movies={searchMovies}
                 type={'dislikes'}
                 buttonLabel={'Удалить из списка'}
                 handleLikesMovie={handleDeleteMovie}

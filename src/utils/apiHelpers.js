@@ -1,9 +1,9 @@
 import { getMovies, saveMovie, deleteMovie } from './MainApi';
 
-export function getLikesMovies(setLikesMovies) {
+export function getLikesMovies(setMovies) {
   getMovies()
   .then(moviesData => {
-    setLikesMovies(moviesData);
+    setMovies(moviesData);
   })
   .catch(() => {
     console.error(`Во время запроса произошла ошибка. Возможно, проблема с соединением
@@ -24,10 +24,10 @@ export function saveLikesMovie({ isLiked, ...movie}, likesMovies, setLikesMovies
   });
 }
 
-export function deleteLikesMovie(id, setLikesMovies) {
+export function deleteLikesMovie(id, setMovies) {
   deleteMovie(id)
   .then(() => {
-    getLikesMovies(setLikesMovies);
+    getLikesMovies(setMovies);
   })
   .catch(error => {
     console.error(error);

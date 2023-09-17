@@ -8,6 +8,7 @@ function UserInput({
     inputType,
     formType,
     extraProps,
+    initialInputValue,
     inputChange,
     setInputChange,
     userData,
@@ -16,6 +17,16 @@ function UserInput({
 {
   const [currentValue, setCurrentValue] = React.useState(formType === 'profile' ? userData[name] : '');
   const [initialValue, setInitialValue] = React.useState(formType === 'profile' ? userData[name] : '');
+
+  console.log('userData', userData);
+  console.log('currentValue', currentValue);
+
+  console.log('initialValue', initialValue);
+
+  React.useEffect(() => {
+    (formType === 'profile' && initialInputValue[name])
+      && setInitialValue(initialInputValue[name]);
+  }, [initialInputValue]);
 
   React.useEffect(() => {
     changeUserData({...userData, [name]: currentValue});

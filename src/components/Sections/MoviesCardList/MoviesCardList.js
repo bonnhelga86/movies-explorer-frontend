@@ -1,16 +1,13 @@
 import React from 'react';
-import { useRef } from 'react';
 import MoviesCard from '../../Elements/MoviesCard/MoviesCard';
 import { handler, mediaQuery } from '../../../utils/helpers';
 
 function MoviesCardList({ movies, type, buttonLabel, handleLikesMovie }) {
-  const initial = useRef(false)
-
+  const [showMovies, setShowMovies] = React.useState([]);
   const [initialMoviesCount, setInitialMoviesCount] = React.useState(0);
   const [extraMoviesCount, setExtraMoviesCount] = React.useState(0);
-  let [moviesPage, setMoviesPage] = React.useState(0);
-  const [showMovies, setShowMovies] = React.useState([]);
   const moviesTotalCount = movies.length;
+  let [moviesPage, setMoviesPage] = React.useState(0);
 
   const handlerMoviesCount = () => {
     const { initialMoviesCount, extraMoviesCount } = handler();
@@ -19,7 +16,7 @@ function MoviesCardList({ movies, type, buttonLabel, handleLikesMovie }) {
   }
 
   const getExtraMovies = () => {
-    const endCount = (initialMoviesCount + extraMoviesCount *moviesPage);
+    const endCount = (initialMoviesCount + extraMoviesCount * moviesPage);
     setShowMovies([
       ...showMovies,
       ...movies.slice((showMovies.length), endCount)
@@ -39,24 +36,12 @@ function MoviesCardList({ movies, type, buttonLabel, handleLikesMovie }) {
   }, []);
 
   React.useEffect(() => {
-    initial.current = true;
-    setShowMovies(movies.slice(0, initialMoviesCount));
+    setShowMovies(movies.slice(0, initialMoviesCount + extraMoviesCount * moviesPage));
   }, [movies, initialMoviesCount]);
 
   React.useEffect(() => {
-    if (initial.current) {
-      if (moviesPage !== 0) {
-        getExtraMovies();
-      }
-      initial.current = false;
-    }
-  }, [showMovies]);
-
-  React.useEffect(() => {
-    if (moviesPage !== 0) {
-      getExtraMovies();
-    }
-  }, [moviesPage]);
+    getExtraMovies();
+}, [moviesPage]);
 
   return (
     <>

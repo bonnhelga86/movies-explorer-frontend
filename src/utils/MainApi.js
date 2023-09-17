@@ -1,33 +1,16 @@
 const baseUrl = 'http://localhost:3000';
 
-// const errorsCode = {
-//   register: {
-//     400: 'При регистрации пользователя произошла ошибка.'
-//   },
-//   login: {
-//     // 400: 'Некорректно заполнено одно из полей',
-//     // 401: 'Пользователь с email не найден',
-//   },
-//   tokenCheck: {
-//   //   400: 'При авторизации произошла ошибка. Токен не передан или передан не в том формате.',
-//   //   401: 'При авторизации произошла ошибка. Переданный токен некорректен.'
-//   },
-//   updateUser: {
-//     400: 'При обновлении профиля произошла ошибка.'
-//   },
-// }
-
 async function getResponseData(res, type) {
   if (!res.ok) {
-    // if (res.status === 400) {
-    //   // return Promise.reject(errorsCode[type][res.status]);
-    //   return Promise.reject('Некорректно заполнено одно из полей');
-    // } else
     if (res.status === 500) {
       return Promise.reject('На сервере произошла ошибка.');
     } else {
       const errorResponse = await res.json();
-      return Promise.reject(errorResponse.message);
+      if (errorResponse.validation) {
+        return Promise.reject(errorResponse.validation.body.message);
+      } else {
+        return Promise.reject(errorResponse.message);
+      }
     }
   }
   return res.json();
