@@ -1,4 +1,5 @@
 import React from "react";
+import { useInputValidation } from "../../../hooks/useInputValidation";
 
 function UserInput({
     id,
@@ -12,27 +13,22 @@ function UserInput({
     inputChange,
     setInputChange,
     userData,
+    inputErrorMessage,
+    setInputErrorMessage,
     changeUserData
   })
 {
-  const [currentValue, setCurrentValue] = React.useState(formType === 'profile' ? userData[name] : '');
-  const [initialValue, setInitialValue] = React.useState(formType === 'profile' ? userData[name] : '');
-
-  React.useEffect(() => {
-    (formType === 'profile' && initialInputValue[name])
-      && setInitialValue(initialInputValue[name]);
-  }, [initialInputValue]);
-
-  React.useEffect(() => {
-    changeUserData({...userData, [name]: currentValue});
-    if (inputChange) {
-      if (currentValue !== initialValue) {
-        setInputChange({...inputChange, [name]: true});
-      } else {
-        setInputChange({...inputChange, [name]: false});
-      }
-    }
-  }, [currentValue, initialValue]);
+  const { handleChange, currentValue } = useInputValidation(
+    formType,
+    name,
+    userData,
+    inputErrorMessage,
+    initialInputValue,
+    inputChange,
+    setInputChange,
+    setInputErrorMessage,
+    changeUserData
+  );
 
   return (
     <input
@@ -40,8 +36,8 @@ function UserInput({
       className={className}
       type={inputType}
       id={id}
-      value={currentValue}
-      onChange={(event) => setCurrentValue(event.target.value)}
+      value={currentValue || ''}
+      onChange={handleChange}
       required
       {...extraProps}
     />

@@ -15,7 +15,9 @@ function UserForm(
     setInputChange,
     extraButtonClass,
     handleSubmit,
-    errorMessage
+    errorMessage,
+    inputErrorMessage,
+    setInputErrorMessage
   }
 ){
   const currentUser = React.useContext(CurrentUserContext);
@@ -31,7 +33,7 @@ function UserForm(
       id: `${formName}-${input.name}`,
       inputName: `${formName}-${input.name}`,
       name: input.name,
-      className: `page__input ${type}__input`,
+      className: `page__input ${type}__input ${input.name === 'profile-email' ? 'profile__input_no-border' : ''}`,
       inputType: input.type,
       formType: formName,
       extraProps: input.extraProps && input.extraProps,
@@ -39,6 +41,8 @@ function UserForm(
       inputChange: inputChange,
       setInputChange: setInputChange,
       userData: userData,
+      inputErrorMessage: inputErrorMessage,
+      setInputErrorMessage: setInputErrorMessage,
       changeUserData: setUserData
     };
     return inputProps;
@@ -74,11 +78,13 @@ function UserForm(
                   : <UserInput {...setInputProps(input)} />
                 }
 
-                {type === 'sign'
-                  &&  <span className={`${type}__text-error ${type}__text-error_hidden`}>
-                        Что-то пошло не так...
-                      </span>
-                }
+                <span
+                  className={
+                    `${type}__text-error ${inputErrorMessage[input.name] ? '' : type+'__text-error_hidden'}`
+                  }
+                >
+                  {inputErrorMessage[input.name]}
+                </span>
               </div>
           ))}
         </div>

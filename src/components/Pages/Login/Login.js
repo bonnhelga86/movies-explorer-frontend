@@ -11,6 +11,7 @@ function Login({ handleLoggedIn }) {
   const [isSubmitActive, setIsSubmitActive] = React.useState(false);
   const [isFormError, setIsFormError] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
+  const [inputErrorMessage, setInputErrorMessage] = React.useState({});
 
   const extraButtonClass = `${
     !isSubmitActive
@@ -59,6 +60,8 @@ function Login({ handleLoggedIn }) {
         extraButtonClass={extraButtonClass}
         handleSubmit={handleLogin}
         errorMessage={errorMessage}
+        inputErrorMessage={inputErrorMessage}
+        setInputErrorMessage={setInputErrorMessage}
       />
 
       <p className="sign__text">

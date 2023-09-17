@@ -11,9 +11,14 @@ function App() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState({});
   const [isSliderMenuPopupOpen, setIsSliderMenuPopupOpen] = React.useState(false);
+  console.log('isLoggedIn', isLoggedIn);
+  if (isLoggedIn) {
+    console.log('isLoggedIn in if', isLoggedIn);
+    console.log('I am here');
+  }
 
   function handleLoggedIn(data) {
     setCurrentUser(data);
@@ -53,36 +58,75 @@ function App() {
   }, []);
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      {(location.pathname !== '/not-found')
-        && <Header
-              isLoggedIn={isLoggedIn}
+    <>
+      {isLoggedIn != null &&
+        <CurrentUserContext.Provider value={currentUser}>
+
+            {(location.pathname !== '/not-found')
+              && <Header
+                    isLoggedIn={isLoggedIn}
+                    isPopupOpen={isSliderMenuPopupOpen}
+                    changePopupOpen={setIsSliderMenuPopupOpen}
+                  />
+            }
+
+            <main className="content">
+              <CustomRoutes
+                isLoggedIn={isLoggedIn}
+                handleLoggedIn={handleLoggedIn}
+                handleLogout={handleLogout}
+                setCurrentUser={setCurrentUser}
+              />
+            </main>
+
+            {(location.pathname === '/'
+              || location.pathname === '/movies'
+              || location.pathname === '/saved-movies'
+            )
+              && <Footer />
+            }
+
+            <SliderMenuPopup
               isPopupOpen={isSliderMenuPopupOpen}
               changePopupOpen={setIsSliderMenuPopupOpen}
             />
+
+        </CurrentUserContext.Provider>
       }
+    </>
 
-      <main className="content">
-        <CustomRoutes
-          isLoggedIn={isLoggedIn}
-          handleLoggedIn={handleLoggedIn}
-          handleLogout={handleLogout}
-          setCurrentUser={setCurrentUser}
-        />
-      </main>
+    // <CurrentUserContext.Provider value={currentUser}>
 
-      {(location.pathname === '/'
-        || location.pathname === '/movies'
-        || location.pathname === '/saved-movies'
-      )
-        && <Footer />
-      }
+    //     {(location.pathname !== '/not-found')
+    //       && <Header
+    //             isLoggedIn={isLoggedIn}
+    //             isPopupOpen={isSliderMenuPopupOpen}
+    //             changePopupOpen={setIsSliderMenuPopupOpen}
+    //           />
+    //     }
 
-      <SliderMenuPopup
-        isPopupOpen={isSliderMenuPopupOpen}
-        changePopupOpen={setIsSliderMenuPopupOpen}
-      />
-    </CurrentUserContext.Provider>
+    //     <main className="content">
+    //       <CustomRoutes
+    //         isLoggedIn={isLoggedIn}
+    //         handleLoggedIn={handleLoggedIn}
+    //         handleLogout={handleLogout}
+    //         setCurrentUser={setCurrentUser}
+    //       />
+    //     </main>
+
+    //     {(location.pathname === '/'
+    //       || location.pathname === '/movies'
+    //       || location.pathname === '/saved-movies'
+    //     )
+    //       && <Footer />
+    //     }
+
+    //     <SliderMenuPopup
+    //       isPopupOpen={isSliderMenuPopupOpen}
+    //       changePopupOpen={setIsSliderMenuPopupOpen}
+    //     />
+
+    // </CurrentUserContext.Provider>
   );
 }
 

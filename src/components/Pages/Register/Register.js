@@ -11,6 +11,7 @@ function Register({ handleLoggedIn }) {
   const [isSubmitActive, setIsSubmitActive] = React.useState(false);
   const [isFormError, setIsFormError] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
+  const [inputErrorMessage, setInputErrorMessage] = React.useState({});
 
   const extraButtonClass = `${
     !isSubmitActive
@@ -25,7 +26,7 @@ function Register({ handleLoggedIn }) {
             login(data.email, password)
               .then(data => {
                 if(data) {
-                  handleLoggedIn(data);
+                  handleLoggedIn({name, email});
                   navigate('/movies', {replace: true});
                 }
               })
@@ -61,6 +62,8 @@ function Register({ handleLoggedIn }) {
         extraButtonClass={extraButtonClass}
         handleSubmit={handleRegister}
         errorMessage={errorMessage}
+        inputErrorMessage={inputErrorMessage}
+        setInputErrorMessage={setInputErrorMessage}
       />
 
       <p className="sign__text">

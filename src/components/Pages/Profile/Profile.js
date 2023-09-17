@@ -12,6 +12,7 @@ function Profile({ handleLogout, setCurrentUser }) {
   const [isSubmitActive, setIsSubmitActive] = React.useState(false);
   const [isFormError, setIsFormError] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
+  const [inputErrorMessage, setInputErrorMessage] = React.useState({});
 
   const extraButtonClass = `${
     !isSubmitActive
@@ -36,7 +37,10 @@ function Profile({ handleLogout, setCurrentUser }) {
   React.useEffect(() => {
     setIsFormError(false);
     setErrorMessage('');
-    if (inputChange.name === true || inputChange.email === true) {
+    if ((inputChange.name === true || inputChange.email === true)
+          && (!inputErrorMessage.name && !inputErrorMessage.email)
+        )
+    {
       setIsSubmitActive(true);
     } else {
       setIsSubmitActive(false);
@@ -58,6 +62,8 @@ function Profile({ handleLogout, setCurrentUser }) {
         extraButtonClass={extraButtonClass}
         handleSubmit={handleUpdateUser}
         errorMessage={errorMessage}
+        inputErrorMessage={inputErrorMessage}
+        setInputErrorMessage={setInputErrorMessage}
       />
 
       <button
