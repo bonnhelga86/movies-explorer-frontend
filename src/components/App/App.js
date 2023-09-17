@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../Sections/Header/Header';
 import SliderMenuPopup from '../Sections/SliderMenuPopup/SliderMenuPopup';
-import CustomRoutes from '../CustomComponent/CustomRoutes';
+import CustomRoutes from '../Routes/CustomRoutes';
 import Footer from '../Sections/Footer/Footer';
 import { logout, tokenCheck } from '../../utils/MainApi';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
@@ -64,6 +64,7 @@ function App() {
 
       <main className="content">
         <CustomRoutes
+          isLoggedIn={isLoggedIn}
           handleLoggedIn={handleLoggedIn}
           handleLogout={handleLogout}
           setCurrentUser={setCurrentUser}

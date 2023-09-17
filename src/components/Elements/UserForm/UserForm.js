@@ -45,7 +45,6 @@ function UserForm(
   }
 
   React.useEffect(() => {
-    console.log('currentUser', currentUser);
     if (formName === 'profile' && Object.keys(currentUser).length > 0) {
         setUserData({name: currentUser.name, email: currentUser.email});
       }
