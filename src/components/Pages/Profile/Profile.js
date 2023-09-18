@@ -1,6 +1,6 @@
 import React from 'react';
 import UserForm from '../../Elements/UserForm/UserForm';
-import { updateUser } from '../../../utils/MainApi';
+import { useMainApi } from '../../../hooks/useMainApi';
 import { profileInputList } from '../../../utils/inputList';
 import CurrentUserContext from '../../../contexts/CurrentUserContext';
 
@@ -14,6 +14,8 @@ function Profile({ handleLogout, setCurrentUser }) {
   const [errorMessage, setErrorMessage] = React.useState('');
   const [inputErrorMessage, setInputErrorMessage] = React.useState({});
 
+  const { userUpdate } = useMainApi();
+
   const extraButtonClass = `${
     !isSubmitActive
     ? ''
@@ -21,30 +23,20 @@ function Profile({ handleLogout, setCurrentUser }) {
   }`;
 
   function handleUpdateUser({ name, email }) {
-    updateUser(name, email)
-        .then(data => {
-          if(data) {
-            setCurrentUser(data);
-            setInitialInputValue(data)
-          }
-        })
-        .catch(error => {
-          setIsFormError(true);
-          setErrorMessage(error);
-        });
+    userUpdate(name, email, setCurrentUser, setInitialInputValue, setIsFormError, setErrorMessage);
   }
 
   React.useEffect(() => {
     setIsFormError(false);
     setErrorMessage('');
-    if ((inputChange.name === true || inputChange.email === true)
-          && (!inputErrorMessage.name && !inputErrorMessage.email)
-        )
-    {
-      setIsSubmitActive(true);
-    } else {
-      setIsSubmitActive(false);
-    }
+
+    (inputChange.name === true || inputChange.email === true)
+    ? setIsSubmitActive(true)
+    : setIsSubmitActive(false);
+
+    (!inputErrorMessage.name && !inputErrorMessage.email)
+    ? setIsFormError(false)
+    : setIsFormError(true);
   }, [inputChange]);
 
   return (

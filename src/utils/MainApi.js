@@ -86,11 +86,4 @@ export const deleteMovie = (id) => {
     method: 'DELETE',
     credentials: 'include',
   }).then(res => getResponseData(res));
-  // .then(response => {
-  //   if(!response.ok) {
-  //     return Promise.reject('Не получилось удалить фильм. Попробуйте еще раз.');
-  //   } else {
-  //     return Promise.resolve();
-  //   }
-  // })
 }

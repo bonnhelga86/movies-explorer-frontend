@@ -2,19 +2,29 @@ import React from 'react';
 import Form from '../../Elements/Form/Form';
 import SearchInput from '../../Elements/SearchInput/SearchInput';
 
-function SearchForm({ initialSearchQuery, setSearchQuery, isShort, setIsShort, setIsSubmitted }) {
-  const searchInputRef = React.useRef();
-  const [isFormError, setIsFormError] = React.useState(false);
-
+function SearchForm({
+  initialSearchQuery,
+  searchQuery,
+  setSearchQuery,
+  isShort,
+  setIsShort,
+  setIsSubmitted,
+  isFormError,
+  setIsFormError
+}) {
   const handleSubmit = (event) => {
-    event.preventDefault();
-    if (searchInputRef.current.value) {
-      setSearchQuery(searchInputRef.current.value);
+    event && event.preventDefault();
+    if (searchQuery) {
       setIsFormError(false);
       setIsSubmitted(true);
     } else {
       setIsFormError(true);
     }
+  }
+
+  function handleIsShort() {
+    setIsShort(!isShort);
+    handleSubmit();
   }
 
   return (
@@ -24,12 +34,13 @@ function SearchForm({ initialSearchQuery, setSearchQuery, isShort, setIsShort, s
         type={'search'}
         buttonValue={'Найти'}
         isShort={isShort}
-        setIsShort={setIsShort}
+        handleIsShort={handleIsShort}
         handleSubmitClick={handleSubmit}
       >
         <SearchInput
           initialSearchQuery={initialSearchQuery}
-          inputRef={searchInputRef}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
         />
       </Form>
       <p className={`search__text-error ${!isFormError ? 'search__text-error_hidden' : ''}`}>

@@ -7,13 +7,18 @@ import Movies from '../Pages/Movies/Movies';
 import SavedMovies from '../Pages/SavedMovies/SavedMovies';
 import NotFound from '../Pages/NotFound/NotFound';
 import ProtectedRoute from './ProtectedRoute';
+import SignRoute from './SignRoute';
 
 function CustomRoutes({ isLoggedIn, handleLoggedIn, handleLogout, setCurrentUser }) {
   return (
     <Routes>
-      <Route path="/signup" element={ <Register handleLoggedIn={handleLoggedIn} /> }/>
+      <Route path="/signup" element={
+        <SignRoute element={Register} isLoggedIn={isLoggedIn} handleLoggedIn={handleLoggedIn} />}
+      />
 
-      <Route path="/signin" element={ <Login handleLoggedIn={handleLoggedIn} /> }/>
+      <Route path="/signin" element={
+        <SignRoute element={Login} isLoggedIn={isLoggedIn} handleLoggedIn={handleLoggedIn} />}
+      />
 
       <Route path="/" element={ <Main /> }/>
 

@@ -2,9 +2,9 @@ import React from 'react';
 import MoviesCardList from '../../Sections/MoviesCardList/MoviesCardList';
 import SearchForm from '../../Elements/SearchForm/SearchForm';
 import Preloader from '../../Elements/Preloader/Preloader';
-import api from '../../../utils/MoviesApi';
 import { prepareMovies, getFilterMoviesList } from '../../../utils/helpers';
-import { getLikesMovies, saveLikesMovie, deleteLikesMovie } from '../../../utils/apiHelpers';
+import { useMainApi } from '../../../hooks/useMainApi';
+import { useMoviesApi } from '../../../hooks/useMoviesApi';
 
 function Movies() {
   const [movies, setMovies] = React.useState([]);
@@ -18,6 +18,11 @@ function Movies() {
 
   const [isSubmitted, setIsSubmitted] = React.useState(false);
   const [isPreloader, setIsPreloader] = React.useState(false);
+  const [userErrorResponse, setUserErrorResponse] = React.useState('');
+  const [isFormError, setIsFormError] = React.useState(false);
+
+  const { getLikesMovies, saveLikesMovie, deleteLikesMovie } = useMainApi();
+  const { getAllMovies } = useMoviesApi();
 
   function saveLocal(filterMoviesWithLikes) {
     localStorage.setItem('localMovies', JSON.stringify(filterMoviesWithLikes));
@@ -55,7 +60,7 @@ function Movies() {
 
   React.useEffect(() => {
     getLocal();
-    getLikesMovies(setLikesMovies);
+    getLikesMovies(setLikesMovies, setUserErrorResponse);
   }, []);
 
   React.useEffect(() => {
@@ -67,7 +72,7 @@ function Movies() {
 
   React.useEffect(() => {
     if(movies.length > 0) {
-      getLikesMovies(setLikesMovies);
+      getLikesMovies(setLikesMovies, setUserErrorResponse);
       const filterMovies = prepareMovies(getFilterMoviesList(movies, searchQuery, isShort));
       const filterMoviesWithLikes = handleSetLikesStatus(filterMovies);
       setMoviesForShow(filterMoviesWithLikes);
@@ -78,42 +83,44 @@ function Movies() {
   React.useEffect(() => {
     if(searchQuery && (searchQuery !== initialSearchQuery || isShort !== initialIsShort)) {
       setIsPreloader(true);
-      api.getMovies()
-      .then((moviesData) => {
-        setInitialSearchQuery(searchQuery);
-        setInitialIsShort(isShort);
-        setMovies(moviesData);
-      })
-      .catch(() => {
-        console.error(`Во время запроса произошла ошибка. Возможно, проблема с соединением
-                        или сервер недоступен. Подождите немного и попробуйте ещё раз.`
-        );
-      })
-      .finally(() => {
-        setIsSubmitted(false);
-        setIsPreloader(false);
-      });
+
+      getAllMovies(
+        setInitialSearchQuery,
+        searchQuery,
+        setInitialIsShort,
+        isShort,
+        setMovies,
+        setUserErrorResponse
+      );
+
+      setIsSubmitted(false);
+      setIsPreloader(false);
     } else {
       setIsSubmitted(false);
     }
-  }, [isSubmitted])
+  }, [isSubmitted]);
 
   return (
     <>
       <SearchForm
         initialSearchQuery={initialSearchQuery}
+        searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         isShort={isShort}
         setIsShort={setIsShort}
         setIsSubmitted={setIsSubmitted}
+        isFormError={isFormError}
+        setIsFormError={setIsFormError}
       />
       <section className="movies" aria-label="Секция с фильмами">
-      {!searchQuery
+      {!initialSearchQuery
         ? <p className="movies__query">Здесь пока пусто. Найдите фильмы по поиску.</p>
         : (isPreloader)
             ? <Preloader />
             : (moviesForShow.length === 0)
-                ? <p className="movies__query">Ничего не найдено</p>
+                ? <p className="movies__query">
+                    {(userErrorResponse) ? userErrorResponse : 'Ничего не найдено'}
+                  </p>
                 : <MoviesCardList
                     movies={moviesForShow}
                     type={'likes'}

@@ -1,17 +1,17 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import UserForm from '../../Elements/UserForm/UserForm';
-import { login, tokenCheck } from '../../../utils/MainApi';
+import { useMainApi } from '../../../hooks/useMainApi';
 import { loginInputList } from '../../../utils/inputList';
 
 function Login({ handleLoggedIn }) {
-  const navigate = useNavigate();
-
   const [inputChange, setInputChange] = React.useState({email: false, password: false});
   const [isSubmitActive, setIsSubmitActive] = React.useState(false);
   const [isFormError, setIsFormError] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
   const [inputErrorMessage, setInputErrorMessage] = React.useState({});
+
+  const { userLogin } = useMainApi();
 
   const extraButtonClass = `${
     !isSubmitActive
@@ -20,20 +20,7 @@ function Login({ handleLoggedIn }) {
   }`;
 
   function handleLogin({ email, password }) {
-    login(email, password)
-        .then(data => {
-          if(data) {
-            tokenCheck()
-              .then((data) => {
-                handleLoggedIn(data);
-                navigate('/movies', {replace: true});
-              })
-          }
-        })
-        .catch(error => {
-          setIsFormError(true);
-          setErrorMessage(error);
-        });
+    userLogin(email, password, handleLoggedIn, setIsFormError, setErrorMessage);
   }
 
   React.useEffect(() => {

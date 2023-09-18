@@ -7,7 +7,7 @@ function Form(
     buttonValue,
     extraButtonClass='',
     isShort,
-    setIsShort,
+    handleIsShort,
     handleSubmitClick,
     children
   }) {
@@ -25,7 +25,7 @@ function Form(
       >
         {buttonValue}
       </button>
-      {type === 'search' && <FilterCheckbox isShort={isShort} setIsShort={setIsShort} />}
+      {type === 'search' && <FilterCheckbox isShort={isShort} handleIsShort={handleIsShort} />}
     </form>
   );
 }

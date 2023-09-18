@@ -1,17 +1,17 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import UserForm from '../../Elements/UserForm/UserForm';
-import { register, login } from '../../../utils/MainApi';
+import { useMainApi } from '../../../hooks/useMainApi';
 import { registerInputList } from '../../../utils/inputList';
 
 function Register({ handleLoggedIn }) {
-  const navigate = useNavigate();
-
   const [inputChange, setInputChange] = React.useState({name: false, email: false, password: false});
   const [isSubmitActive, setIsSubmitActive] = React.useState(false);
   const [isFormError, setIsFormError] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
   const [inputErrorMessage, setInputErrorMessage] = React.useState({});
+
+  const { userRegister } = useMainApi();
 
   const extraButtonClass = `${
     !isSubmitActive
@@ -19,23 +19,8 @@ function Register({ handleLoggedIn }) {
     : (!isFormError ? 'form__button form__button_type_active' : 'form__button form__button_type_disabled')
   }`;
 
-  function handleRegister({ name, email, password }) {
-    register(name, email, password)
-        .then(data => {
-          if(data) {
-            login(data.email, password)
-              .then(data => {
-                if(data) {
-                  handleLoggedIn({name, email});
-                  navigate('/movies', {replace: true});
-                }
-              })
-          }
-        })
-        .catch(error => {
-          setIsFormError(true);
-          setErrorMessage(error);
-        });
+  async function handleRegister({ name, email, password }) {
+    userRegister(name, email, password, handleLoggedIn, setIsFormError, setErrorMessage);
   }
 
   React.useEffect(() => {
