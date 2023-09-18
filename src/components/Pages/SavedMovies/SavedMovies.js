@@ -37,12 +37,10 @@ function SavedMovies() {
   }, []);
 
   React.useEffect(() => {
-    if(movies.length > 0) {
-      if (searchQuery) {
-        handleFilterMovies();
-      } else {
-        setSearchMovies(movies);
-      }
+    if (movies.length > 0 && searchQuery) {
+      handleFilterMovies();
+    } else {
+      setSearchMovies(movies);
     }
   }, [movies]);
 
