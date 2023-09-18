@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3000';
+const baseUrl = 'https://api.movies--explorer.nomoredomainsicu.ru';
 
 async function getResponseData(res, type) {
   if (!res.ok) {
