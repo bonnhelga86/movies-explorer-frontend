@@ -39,11 +39,11 @@ export function useMainApi() {
     }
   }
 
-  async function deleteLikesMovie(id, setMovies) {
+  async function deleteLikesMovie(id, setMovies, setUserErrorResponse) {
     try {
       const deleteMovieResponse =  await deleteMovie(id);
       if (deleteMovieResponse) {
-        getLikesMovies(setMovies);
+        getLikesMovies(setMovies, setUserErrorResponse);
       }
     } catch (error) {
       console.error(error);

@@ -22,7 +22,7 @@ function SavedMovies() {
   const { getLikesMovies, deleteLikesMovie } = useMainApi();
 
   function handleDeleteMovie(movie) {
-    deleteLikesMovie(movie._id, setMovies);
+    deleteLikesMovie(movie._id, setMovies, setUserErrorResponse);
   }
 
   function handleFilterMovies() {
