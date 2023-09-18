@@ -12,9 +12,10 @@ function Profile({ handleLogout, setCurrentUser }) {
   const [isSubmitActive, setIsSubmitActive] = React.useState(false);
   const [isFormError, setIsFormError] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
+  const [successMessage, setSuccessMessage] = React.useState('');
   const [inputErrorMessage, setInputErrorMessage] = React.useState({});
 
-  const { userUpdate } = useMainApi();
+  const { updateUserData } = useMainApi();
 
   const extraButtonClass = `${
     !isSubmitActive
@@ -23,20 +24,33 @@ function Profile({ handleLogout, setCurrentUser }) {
   }`;
 
   function handleUpdateUser({ name, email }) {
-    userUpdate(name, email, setCurrentUser, setInitialInputValue, setIsFormError, setErrorMessage);
+    updateUserData(
+      name,
+      email,
+      setCurrentUser,
+      setInitialInputValue,
+      setIsFormError,
+      setErrorMessage,
+      setSuccessMessage
+    );
   }
 
   React.useEffect(() => {
     setIsFormError(false);
     setErrorMessage('');
 
-    (inputChange.name === true || inputChange.email === true)
-    ? setIsSubmitActive(true)
-    : setIsSubmitActive(false);
+    if (inputChange.name === true || inputChange.email === true) {
+      setSuccessMessage('');
+      setIsSubmitActive(true);
+    } else {
+      setIsSubmitActive(false);
+    }
 
-    (!inputErrorMessage.name && !inputErrorMessage.email)
-    ? setIsFormError(false)
-    : setIsFormError(true);
+    if (!inputErrorMessage.name && !inputErrorMessage.email) {
+      setIsFormError(false);
+    } else {
+      setIsFormError(true);
+    }
   }, [inputChange]);
 
   return (
@@ -54,6 +68,7 @@ function Profile({ handleLogout, setCurrentUser }) {
         extraButtonClass={extraButtonClass}
         handleSubmit={handleUpdateUser}
         errorMessage={errorMessage}
+        successMessage={successMessage}
         inputErrorMessage={inputErrorMessage}
         setInputErrorMessage={setInputErrorMessage}
       />

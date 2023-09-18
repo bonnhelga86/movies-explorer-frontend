@@ -16,6 +16,7 @@ function UserForm(
     extraButtonClass,
     handleSubmit,
     errorMessage,
+    successMessage='',
     inputErrorMessage,
     setInputErrorMessage
   }
@@ -90,8 +91,12 @@ function UserForm(
           ))}
         </div>
 
-        <span className={`form__text-error ${errorMessage ? '' : 'form__text-error_hidden'}`}>
-          {errorMessage}
+        <span className={`
+          form__response-text
+          ${!errorMessage ? '' : 'form__response-text_type_error'}
+          ${!successMessage ? '' : 'form__response-text_type_success'}
+        `}>
+          {errorMessage ? errorMessage : successMessage}
         </span>
 
       </Form>

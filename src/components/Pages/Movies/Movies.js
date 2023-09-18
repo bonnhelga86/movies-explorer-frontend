@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import MoviesCardList from '../../Sections/MoviesCardList/MoviesCardList';
 import SearchForm from '../../Elements/SearchForm/SearchForm';
 import Preloader from '../../Elements/Preloader/Preloader';
@@ -7,6 +7,8 @@ import { useMainApi } from '../../../hooks/useMainApi';
 import { useMoviesApi } from '../../../hooks/useMoviesApi';
 
 function Movies() {
+  const firstRender = useRef(true);
+
   const [movies, setMovies] = React.useState([]);
   const [likesMovies, setLikesMovies] = React.useState([]);
   const [moviesForShow, setMoviesForShow] = React.useState([]);
@@ -58,6 +60,14 @@ function Movies() {
     }
   }
 
+  function prepareMoviesForShow() {
+    getLikesMovies(setLikesMovies, setUserErrorResponse);
+    const filterMovies = prepareMovies(getFilterMoviesList(movies, searchQuery, isShort));
+    const filterMoviesWithLikes = handleSetLikesStatus(filterMovies);
+    setMoviesForShow(filterMoviesWithLikes);
+    saveLocal(filterMoviesWithLikes);
+  }
+
   React.useEffect(() => {
     getLocal();
     getLikesMovies(setLikesMovies, setUserErrorResponse);
@@ -72,29 +82,30 @@ function Movies() {
 
   React.useEffect(() => {
     if(movies.length > 0) {
-      getLikesMovies(setLikesMovies, setUserErrorResponse);
-      const filterMovies = prepareMovies(getFilterMoviesList(movies, searchQuery, isShort));
-      const filterMoviesWithLikes = handleSetLikesStatus(filterMovies);
-      setMoviesForShow(filterMoviesWithLikes);
-      saveLocal(filterMoviesWithLikes);
+      prepareMoviesForShow();
     }
   }, [movies]);
 
   React.useEffect(() => {
     if(searchQuery && (searchQuery !== initialSearchQuery || isShort !== initialIsShort)) {
-      setIsPreloader(true);
 
-      getAllMovies(
-        setInitialSearchQuery,
-        searchQuery,
-        setInitialIsShort,
-        isShort,
-        setMovies,
-        setUserErrorResponse
-      );
+      if (firstRender.current) {
+        firstRender.current = false;
+        setIsPreloader(true);
+        getAllMovies(
+          setInitialSearchQuery,
+          searchQuery,
+          setInitialIsShort,
+          isShort,
+          setMovies,
+          setUserErrorResponse
+        );
+        setIsPreloader(false);
+      } else {
+        prepareMoviesForShow();
+      }
 
       setIsSubmitted(false);
-      setIsPreloader(false);
     } else {
       setIsSubmitted(false);
     }

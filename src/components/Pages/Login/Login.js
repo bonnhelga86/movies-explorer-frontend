@@ -11,7 +11,7 @@ function Login({ handleLoggedIn }) {
   const [errorMessage, setErrorMessage] = React.useState('');
   const [inputErrorMessage, setInputErrorMessage] = React.useState({});
 
-  const { userLogin } = useMainApi();
+  const { loginUser } = useMainApi();
 
   const extraButtonClass = `${
     !isSubmitActive
@@ -20,7 +20,7 @@ function Login({ handleLoggedIn }) {
   }`;
 
   function handleLogin({ email, password }) {
-    userLogin(email, password, handleLoggedIn, setIsFormError, setErrorMessage);
+    loginUser(email, password, handleLoggedIn, setIsFormError, setErrorMessage);
   }
 
   React.useEffect(() => {

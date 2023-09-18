@@ -19,7 +19,28 @@
   color: #C2C2C2;
 }
 
-.form__text-error {
+.form__response-text {
+  min-height: 13px;
+  text-align: center;
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  display: block;
+  visibility: hidden;
+}
+
+.form__response-text_type_error {
+  color: #FF004C;
+  visibility: visible;
+}
+
+.form__response-text_type_success {
+  color: #2BE080;
+  visibility: visible;
+}
+
+/* .form__text-error {
   min-height: 13px;
   text-align: center;
   font-size: 11px;
@@ -32,7 +53,7 @@
 
 .form__text-error_hidden {
   visibility: hidden;
-}
+} */
 
 @media screen and (max-width: 487px) {
   .form__button {

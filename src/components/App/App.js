@@ -14,7 +14,7 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [isSliderMenuPopupOpen, setIsSliderMenuPopupOpen] = React.useState(false);
 
-  const { userTokenCheck, userLogout } = useMainApi();
+  const { tokenCheckUser, logoutUser } = useMainApi();
 
   function handleLoggedIn(data) {
     setCurrentUser(data);
@@ -22,11 +22,11 @@ function App() {
   }
 
   async function handleLogout() {
-    userLogout(setIsLoggedIn, setCurrentUser);
+    logoutUser(setIsLoggedIn, setCurrentUser);
   }
 
   React.useEffect(() => {
-    userTokenCheck(handleLoggedIn, setIsLoggedIn);
+    tokenCheckUser(handleLoggedIn, setIsLoggedIn);
   }, []);
 
   return (

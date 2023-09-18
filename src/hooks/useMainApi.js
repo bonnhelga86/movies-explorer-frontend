@@ -50,7 +50,7 @@ export function useMainApi() {
     }
   }
 
-  async function userTokenCheck(handleLoggedIn, setIsLoggedIn) {
+  async function tokenCheckUser(handleLoggedIn, setIsLoggedIn) {
     try {
       const tokenCheckResponse =  await tokenCheck();
       if (tokenCheckResponse) {
@@ -62,7 +62,7 @@ export function useMainApi() {
     }
   }
 
-  async function userLogin(email, password, handleLoggedIn, setIsFormError, setErrorMessage) {
+  async function loginUser(email, password, handleLoggedIn, setIsFormError, setErrorMessage) {
     try {
       const loginResponse =  await login(email, password);
       if (loginResponse) {
@@ -78,11 +78,11 @@ export function useMainApi() {
     }
   }
 
-  async function userRegister(name, email, password, handleLoggedIn, setIsFormError, setErrorMessage) {
+  async function registerUser(name, email, password, handleLoggedIn, setIsFormError, setErrorMessage) {
     try {
       const registerResponse = await register(name, email, password);
       if (registerResponse) {
-        userLogin(email, password, handleLoggedIn, setIsFormError, setErrorMessage);
+        loginUser(email, password, handleLoggedIn, setIsFormError, setErrorMessage);
       }
     } catch (error) {
         setIsFormError(true);
@@ -90,12 +90,21 @@ export function useMainApi() {
     }
   }
 
-  async function userUpdate(name, email, setCurrentUser, setInitialInputValue, setIsFormError, setErrorMessage) {
+  async function updateUserData(
+    name,
+    email,
+    setCurrentUser,
+    setInitialInputValue,
+    setIsFormError,
+    setErrorMessage,
+    setSuccessMessage
+  ) {
     try {
       const updateResponse = await updateUser(name, email);
       if (updateResponse) {
         setCurrentUser(updateResponse);
-        setInitialInputValue(updateResponse)
+        setInitialInputValue(updateResponse);
+        setSuccessMessage('Обновление прошло успешно.');
       }
     } catch (error) {
         setIsFormError(true);
@@ -103,7 +112,7 @@ export function useMainApi() {
     }
   }
 
-  async function userLogout(setIsLoggedIn, setCurrentUser) {
+  async function logoutUser(setIsLoggedIn, setCurrentUser) {
     try {
       const logoutResponse =  await logout();
       if (logoutResponse) {
@@ -123,10 +132,10 @@ export function useMainApi() {
     getLikesMovies,
     saveLikesMovie,
     deleteLikesMovie,
-    userTokenCheck,
-    userRegister,
-    userLogin,
-    userUpdate,
-    userLogout
+    tokenCheckUser,
+    registerUser,
+    loginUser,
+    updateUserData,
+    logoutUser
   };
 }

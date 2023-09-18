@@ -1,6 +1,8 @@
-import React from "react";
-
 export function useInputValidation(
+  currentValue,
+  initialValue,
+  setCurrentValue,
+  setInitialValue,
   formType,
   name,
   userData,
@@ -11,9 +13,6 @@ export function useInputValidation(
   setInputErrorMessage,
   changeUserData
 ) {
-  const [currentValue, setCurrentValue] = React.useState(formType === 'profile' ? userData[name] : '');
-  const [initialValue, setInitialValue] = React.useState(formType === 'profile' ? userData[name] : '');
-
   const handleValidationTypeName = () => {
     const regexInput = /[0-9`!@#$%^&*()\+=\[\]{};':"\\|,.<>\/?~]/;
     if (regexInput.test(currentValue)) {
@@ -27,12 +26,12 @@ export function useInputValidation(
     setInputErrorMessage({...inputErrorMessage, [name]: input.validationMessage});
   }
 
-  React.useEffect(() => {
+  const handleSetInitialValue = () => {
     (formType === 'profile' && initialInputValue[name])
       && setInitialValue(initialInputValue[name]);
-  }, [initialInputValue]);
+  }
 
-  React.useEffect(() => {
+  const handleSetInputChange = () => {
     name === 'name' && handleValidationTypeName();
     changeUserData({...userData, [name]: currentValue});
     if (inputChange) {
@@ -42,7 +41,7 @@ export function useInputValidation(
         setInputChange({...inputChange, [name]: false});
       }
     }
-  }, [currentValue, initialValue]);
+  }
 
-  return { handleChange, currentValue };
+  return { handleChange, handleSetInitialValue, handleSetInputChange };
 }

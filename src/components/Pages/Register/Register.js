@@ -11,7 +11,7 @@ function Register({ handleLoggedIn }) {
   const [errorMessage, setErrorMessage] = React.useState('');
   const [inputErrorMessage, setInputErrorMessage] = React.useState({});
 
-  const { userRegister } = useMainApi();
+  const { registerUser } = useMainApi();
 
   const extraButtonClass = `${
     !isSubmitActive
@@ -20,7 +20,7 @@ function Register({ handleLoggedIn }) {
   }`;
 
   async function handleRegister({ name, email, password }) {
-    userRegister(name, email, password, handleLoggedIn, setIsFormError, setErrorMessage);
+    registerUser(name, email, password, handleLoggedIn, setIsFormError, setErrorMessage);
   }
 
   React.useEffect(() => {

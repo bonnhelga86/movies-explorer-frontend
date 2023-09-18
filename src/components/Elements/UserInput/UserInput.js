@@ -18,7 +18,14 @@ function UserInput({
     changeUserData
   })
 {
-  const { handleChange, currentValue } = useInputValidation(
+  const [currentValue, setCurrentValue] = React.useState(formType === 'profile' ? userData[name] : '');
+  const [initialValue, setInitialValue] = React.useState(formType === 'profile' ? userData[name] : '');
+
+  const { handleChange, handleSetInitialValue, handleSetInputChange } = useInputValidation(
+    currentValue,
+    initialValue,
+    setCurrentValue,
+    setInitialValue,
     formType,
     name,
     userData,
@@ -29,6 +36,14 @@ function UserInput({
     setInputErrorMessage,
     changeUserData
   );
+
+  React.useEffect(() => {
+    handleSetInitialValue();
+  }, [initialInputValue]);
+
+  React.useEffect(() => {
+    handleSetInputChange();
+  }, [currentValue, initialValue]);
 
   return (
     <input

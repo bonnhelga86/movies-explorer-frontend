@@ -46,15 +46,6 @@ function SavedMovies() {
     }
   }, [movies]);
 
-  // React.useEffect(() => {
-  //   if (searchQuery) {
-  //     setIsSubmitted(true);
-  //     setIsFormError(false);
-  //   } else {
-  //     setIsFormError(true);
-  //   }
-  // }, [isShort]);
-
   React.useEffect(() => {
     if(searchQuery && (searchQuery !== initialSearchQuery || isShort !== initialIsShort)) {
       setIsPreloader(true);
