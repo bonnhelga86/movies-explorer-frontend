@@ -8,6 +8,7 @@ import { useMoviesApi } from '../../../hooks/useMoviesApi';
 
 function Movies() {
   const firstRender = useRef(true);
+  const formMoviesRef = useRef();
 
   const [movies, setMovies] = React.useState([]);
   const [likesMovies, setLikesMovies] = React.useState([]);
@@ -17,6 +18,7 @@ function Movies() {
   const [searchQuery, setSearchQuery] = React.useState('');
   const [initialIsShort, setInitialIsShort] = React.useState(false);
   const [isShort, setIsShort] = React.useState(false);
+  const [isNewSearch, setIsNewSearch] = React.useState(false);
 
   const [isSubmitted, setIsSubmitted] = React.useState(false);
   const [isPreloader, setIsPreloader] = React.useState(false);
@@ -54,7 +56,7 @@ function Movies() {
   function handleLikesMovie(movie) {
     const likesFilter = likesMovies.filter(likesMovie => likesMovie.movieId === movie.movieId);
     if (likesFilter.length > 0) {
-      deleteLikesMovie(likesFilter[0]._id, setLikesMovies);
+      deleteLikesMovie(likesFilter[0]._id, setLikesMovies, setUserErrorResponse);
     } else {
       saveLikesMovie(movie, likesMovies, setLikesMovies);
     }
@@ -88,22 +90,20 @@ function Movies() {
 
   React.useEffect(() => {
     if(searchQuery && (searchQuery !== initialSearchQuery || isShort !== initialIsShort)) {
+      formMoviesRef.current.classList.add('form_disabled');
 
       if (firstRender.current) {
         firstRender.current = false;
         setIsPreloader(true);
-        getAllMovies(
-          setInitialSearchQuery,
-          searchQuery,
-          setInitialIsShort,
-          isShort,
-          setMovies,
-          setUserErrorResponse
-        );
+        getAllMovies(setMovies, setUserErrorResponse);
         setIsPreloader(false);
       } else {
         prepareMoviesForShow();
       }
+      formMoviesRef.current.classList.remove('form_disabled');
+
+      setInitialSearchQuery(searchQuery);
+      setInitialIsShort(isShort);
 
       setIsSubmitted(false);
     } else {
@@ -114,14 +114,18 @@ function Movies() {
   return (
     <>
       <SearchForm
+        movies={movies}
+        typeMoviesPage={'movies'}
         initialSearchQuery={initialSearchQuery}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         isShort={isShort}
         setIsShort={setIsShort}
+        setIsNewSearch={setIsNewSearch}
         setIsSubmitted={setIsSubmitted}
         isFormError={isFormError}
         setIsFormError={setIsFormError}
+        formRef={formMoviesRef}
       />
       <section className="movies" aria-label="Секция с фильмами">
       {!initialSearchQuery
@@ -134,9 +138,12 @@ function Movies() {
                   </p>
                 : <MoviesCardList
                     movies={moviesForShow}
+                    typeMoviesPage={'movies'}
                     type={'likes'}
                     buttonLabel={'Лайкнуть'}
                     handleLikesMovie={handleLikesMovie}
+                    isNewSearch={isNewSearch}
+                    setIsNewSearch={setIsNewSearch}
                   />
       }
       </section>

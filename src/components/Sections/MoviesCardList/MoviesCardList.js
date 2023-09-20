@@ -2,7 +2,15 @@ import React from 'react';
 import MoviesCard from '../../Elements/MoviesCard/MoviesCard';
 import { handler, mediaQuery } from '../../../utils/helpers';
 
-function MoviesCardList({ movies, type, buttonLabel, handleLikesMovie }) {
+function MoviesCardList({
+  movies,
+  typeMoviesPage,
+  type,
+  buttonLabel,
+  handleLikesMovie,
+  isNewSearch,
+  setIsNewSearch
+}) {
   const [showMovies, setShowMovies] = React.useState([]);
   const [initialMoviesCount, setInitialMoviesCount] = React.useState(0);
   const [extraMoviesCount, setExtraMoviesCount] = React.useState(0);
@@ -36,19 +44,30 @@ function MoviesCardList({ movies, type, buttonLabel, handleLikesMovie }) {
   }, []);
 
   React.useEffect(() => {
-    setShowMovies(movies.slice(0, initialMoviesCount + extraMoviesCount * moviesPage));
+    if (typeMoviesPage === 'saved-movies') {
+      setShowMovies(movies);
+    } else if (typeMoviesPage === 'movies') {
+      setShowMovies(movies.slice(0, initialMoviesCount + extraMoviesCount * moviesPage));
+    }
   }, [movies, initialMoviesCount]);
 
   React.useEffect(() => {
     getExtraMovies();
-}, [moviesPage]);
+  }, [moviesPage]);
+
+  React.useEffect(() => {
+    if (isNewSearch) {
+      setMoviesPage(0);
+      setIsNewSearch(false);
+    }
+  }, [isNewSearch]);
 
   return (
     <>
       <ul className="movies__list page__list">
         {showMovies.map(showMovie => (
           <MoviesCard
-            key={showMovie.nameRU}
+            key={showMovie.movieId}
             movie={showMovie}
             likes={showMovie.isLiked ? 'likes' : 'unlikes'}
             type={type}
@@ -58,16 +77,19 @@ function MoviesCardList({ movies, type, buttonLabel, handleLikesMovie }) {
         ))}
       </ul>
 
-      <button
-        className={
-          `movies__more page__button
-          ${moviesTotalCount === showMovies.length && 'movies__more_hidden'}`
-        }
-        onClick={() => setMoviesPage(++moviesPage)}
-        type="button"
-      >
-        Ещё
-      </button>
+      {(typeMoviesPage === 'movies')
+      && <button
+          className={
+            `movies__more page__button
+            ${moviesTotalCount === showMovies.length && 'movies__more_hidden'}`
+          }
+          onClick={() => setMoviesPage(++moviesPage)}
+          type="button"
+        >
+          Ещё
+        </button>
+      }
+
     </>
   );
 }

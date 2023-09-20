@@ -1,31 +1,33 @@
+import { WINDOW_WIDTH, MOVIES_COUNT, MOVIES_DURATION } from './config';
+
 export const handler = () => {
-  if (window.innerWidth >= 1233) {
+  if (window.innerWidth >= WINDOW_WIDTH.bigWidth) {
     return {
-      initialMoviesCount: 16,
-      extraMoviesCount: 4
+      initialMoviesCount: MOVIES_COUNT.bigWidth.initialMoviesCount,
+      extraMoviesCount: MOVIES_COUNT.bigWidth.extraMoviesCount
     }
-  } else if (window.innerWidth < 1233 && window.innerWidth > 960) {
+  } else if (window.innerWidth < WINDOW_WIDTH.bigWidth && window.innerWidth > WINDOW_WIDTH.middleWidth) {
     return {
-      initialMoviesCount: 12,
-      extraMoviesCount: 3
+      initialMoviesCount: MOVIES_COUNT.middleWidth.initialMoviesCount,
+      extraMoviesCount: MOVIES_COUNT.middleWidth.extraMoviesCount
     }
-  } else if (window.innerWidth <= 960 && window.innerWidth > 675) {
+  } else if (window.innerWidth <= WINDOW_WIDTH.middleWidth && window.innerWidth > WINDOW_WIDTH.smallWidth) {
     return {
-      initialMoviesCount: 8,
-      extraMoviesCount: 2
+      initialMoviesCount: MOVIES_COUNT.smallWidth.initialMoviesCount,
+      extraMoviesCount: MOVIES_COUNT.smallWidth.extraMoviesCount
     }
-  } else if (window.innerWidth <= 675) {
+  } else if (window.innerWidth <= WINDOW_WIDTH.smallWidth) {
     return {
-      initialMoviesCount: 5,
-      extraMoviesCount: 2
+      initialMoviesCount: MOVIES_COUNT.mobileWidth.initialMoviesCount,
+      extraMoviesCount: MOVIES_COUNT.mobileWidth.extraMoviesCount
     }
   }
 };
 
 export const mediaQuery = [
-  window.matchMedia('(min-width: 1233px)'),
-  window.matchMedia('(max-width: 960px)'),
-  window.matchMedia('(max-width: 675px)')
+  window.matchMedia(`(min-width: ${WINDOW_WIDTH.bigWidth}px)`),
+  window.matchMedia(`(max-width: ${WINDOW_WIDTH.middleWidth}px)`),
+  window.matchMedia(`(max-width: ${WINDOW_WIDTH.smallWidth}px)`)
 ];
 
 export function prepareMovies(movies) {
@@ -52,7 +54,7 @@ export function getFilterMoviesList(movies, searchQuery, isShort) {
       return (  (movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
                   || movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
                 )
-                && (isShort ? movie.duration <= 40 : true)
+                && (isShort ? movie.duration <= MOVIES_DURATION.duration : true)
               );
     });
   }

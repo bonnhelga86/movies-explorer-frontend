@@ -2,20 +2,11 @@ import api from '../utils/MoviesApi';
 
 export function useMoviesApi() {
 
-  async function getAllMovies(
-    setInitialSearchQuery,
-    searchQuery,
-    setInitialIsShort,
-    isShort,
-    setMovies,
-    setUserErrorResponse
-  ) {
+  async function getAllMovies(setMovies, setUserErrorResponse) {
     try {
       setUserErrorResponse('');
       const getMoviesResponse =  await api.getMovies();
       if (getMoviesResponse) {
-        setInitialSearchQuery(searchQuery);
-        setInitialIsShort(isShort);
         setMovies(getMoviesResponse);
       }
     } catch (error) {

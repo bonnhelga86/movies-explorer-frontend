@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import UserForm from '../../Elements/UserForm/UserForm';
 import { useMainApi } from '../../../hooks/useMainApi';
 import { loginInputList } from '../../../utils/inputList';
 
 function Login({ handleLoggedIn }) {
+  const formLoginRef = useRef();
+
   const [inputChange, setInputChange] = React.useState({email: false, password: false});
   const [isSubmitActive, setIsSubmitActive] = React.useState(false);
   const [isFormError, setIsFormError] = React.useState(false);
@@ -20,7 +22,9 @@ function Login({ handleLoggedIn }) {
   }`;
 
   function handleLogin({ email, password }) {
+    formLoginRef.current.classList.add('form_disabled');
     loginUser(email, password, handleLoggedIn, setIsFormError, setErrorMessage);
+    formLoginRef.current.classList.remove('form_disabled');
   }
 
   React.useEffect(() => {
@@ -30,6 +34,12 @@ function Login({ handleLoggedIn }) {
       setErrorMessage('');
     } else {
       setIsSubmitActive(false);
+    }
+
+    if (!inputErrorMessage.name && !inputErrorMessage.email) {
+      setIsFormError(false);
+    } else {
+      setIsFormError(true);
     }
   }, [inputChange]);
 
@@ -49,6 +59,7 @@ function Login({ handleLoggedIn }) {
         errorMessage={errorMessage}
         inputErrorMessage={inputErrorMessage}
         setInputErrorMessage={setInputErrorMessage}
+        formRef={formLoginRef}
       />
 
       <p className="sign__text">

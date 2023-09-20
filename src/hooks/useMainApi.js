@@ -120,7 +120,7 @@ export function useMainApi() {
         setCurrentUser({});
         localStorage.removeItem('localMovies');
         localStorage.removeItem('localQuery');
-        navigate('/signin', {replace: true});
+        navigate('/', {replace: true});
         return logoutResponse;
       }
     } catch (error) {

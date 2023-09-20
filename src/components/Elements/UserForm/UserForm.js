@@ -18,7 +18,8 @@ function UserForm(
     errorMessage,
     successMessage='',
     inputErrorMessage,
-    setInputErrorMessage
+    setInputErrorMessage,
+    formRef
   }
 ){
   const currentUser = React.useContext(CurrentUserContext);
@@ -63,8 +64,9 @@ function UserForm(
         formName={formName}
         type={type}
         buttonValue={buttonValue}
-        extraButtonClass={extraButtonClass}
         handleSubmitClick={handleSubmitClick}
+        formRef={formRef}
+        extraButtonClass={extraButtonClass}
       >
 
         <div className={`${type}__input-list-wrap`}>

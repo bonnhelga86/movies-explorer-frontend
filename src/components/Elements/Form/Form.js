@@ -5,16 +5,18 @@ function Form(
     formName,
     type,
     buttonValue,
-    extraButtonClass='',
-    isShort,
-    handleIsShort,
     handleSubmitClick,
+    formRef,
+    extraButtonClass='',
+    isShort='',
+    handleIsShort='',
     children
   }) {
   return (
     <form
-      name={formName+'-form'}
-      className={type+'__form form'}
+      ref={formRef}
+      name={`${formName}-form`}
+      className={`${type}__form form`}
       onSubmit={handleSubmitClick}
       noValidate
     >

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import SearchForm from '../../Elements/SearchForm/SearchForm';
 import MoviesCardList from '../../Sections/MoviesCardList/MoviesCardList';
 import Preloader from '../../Elements/Preloader/Preloader';
@@ -6,6 +6,8 @@ import { getFilterMoviesList } from '../../../utils/helpers';
 import { useMainApi } from '../../../hooks/useMainApi';
 
 function SavedMovies() {
+  const formSavedMoviesRef = useRef();
+
   const [movies, setMovies] = React.useState([]);
   const [searchMovies, setSearchMovies] = React.useState([]);
 
@@ -46,10 +48,14 @@ function SavedMovies() {
 
   React.useEffect(() => {
     if(searchQuery && (searchQuery !== initialSearchQuery || isShort !== initialIsShort)) {
+      formSavedMoviesRef.current.classList.add('form_disabled');
+
       setIsPreloader(true);
+      handleFilterMovies();
+
+      formSavedMoviesRef.current.classList.remove('form_disabled');
       setInitialSearchQuery(searchQuery);
       setInitialIsShort(isShort);
-      handleFilterMovies();
       setIsSubmitted(false);
       setIsPreloader(false);
     } else {
@@ -60,6 +66,8 @@ function SavedMovies() {
   return (
     <>
       <SearchForm
+        movies={movies}
+        typeMoviesPage={'saved-movies'}
         initialSearchQuery={initialSearchQuery}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
@@ -68,6 +76,7 @@ function SavedMovies() {
         setIsSubmitted={setIsSubmitted}
         isFormError={isFormError}
         setIsFormError={setIsFormError}
+        formRef={formSavedMoviesRef}
       />
       <section className="movies saved-movies" aria-label="Секция с сохраненными фильмами">
         {isPreloader
@@ -78,6 +87,7 @@ function SavedMovies() {
               </p>
             : <MoviesCardList
                 movies={searchMovies}
+                typeMoviesPage={'saved-movies'}
                 type={'dislikes'}
                 buttonLabel={'Удалить из списка'}
                 handleLikesMovie={handleDeleteMovie}

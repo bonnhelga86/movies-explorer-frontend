@@ -3,18 +3,22 @@ import Form from '../../Elements/Form/Form';
 import SearchInput from '../../Elements/SearchInput/SearchInput';
 
 function SearchForm({
+  movies,
+  typeMoviesPage,
   initialSearchQuery,
   searchQuery,
   setSearchQuery,
   isShort,
   setIsShort,
+  setIsNewSearch='',
   setIsSubmitted,
   isFormError,
-  setIsFormError
+  setIsFormError,
+  formRef
 }) {
-  const handleSubmit = (event) => {
-    event && event.preventDefault();
+  function checkSubmit() {
     if (searchQuery) {
+      typeMoviesPage === 'movies' && setIsNewSearch(true);
       setIsFormError(false);
       setIsSubmitted(true);
     } else {
@@ -22,9 +26,14 @@ function SearchForm({
     }
   }
 
-  function handleIsShort() {
+  const handleSubmit = (event) => {
+    event && event.preventDefault();
+    checkSubmit();
+  }
+
+ function handleIsShort() {
     setIsShort(!isShort);
-    handleSubmit();
+    movies.length > 0 && checkSubmit();
   }
 
   return (
@@ -33,9 +42,10 @@ function SearchForm({
         formName={'search'}
         type={'search'}
         buttonValue={'Найти'}
+        handleSubmitClick={handleSubmit}
+        formRef={formRef}
         isShort={isShort}
         handleIsShort={handleIsShort}
-        handleSubmitClick={handleSubmit}
       >
         <SearchInput
           initialSearchQuery={initialSearchQuery}

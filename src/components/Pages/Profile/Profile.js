@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import UserForm from '../../Elements/UserForm/UserForm';
 import { useMainApi } from '../../../hooks/useMainApi';
 import { profileInputList } from '../../../utils/inputList';
 import CurrentUserContext from '../../../contexts/CurrentUserContext';
 
 function Profile({ handleLogout, setCurrentUser }) {
+  const formProfileRef = useRef();
+
   const currentUser = React.useContext(CurrentUserContext);
   const [initialInputValue, setInitialInputValue] = React.useState({});
 
@@ -24,6 +26,7 @@ function Profile({ handleLogout, setCurrentUser }) {
   }`;
 
   function handleUpdateUser({ name, email }) {
+    formProfileRef.current.classList.add('form_disabled');
     updateUserData(
       name,
       email,
@@ -33,6 +36,7 @@ function Profile({ handleLogout, setCurrentUser }) {
       setErrorMessage,
       setSuccessMessage
     );
+    formProfileRef.current.classList.remove('form_disabled');
   }
 
   React.useEffect(() => {
@@ -71,6 +75,7 @@ function Profile({ handleLogout, setCurrentUser }) {
         successMessage={successMessage}
         inputErrorMessage={inputErrorMessage}
         setInputErrorMessage={setInputErrorMessage}
+        formRef={formProfileRef}
       />
 
       <button

@@ -165,6 +165,10 @@
     margin-bottom: 6px;
   }
 
+  .movies__button_type_dislikes {
+    opacity: 1;
+  }
+
   .movies__more {
     width: 240px;
   }
