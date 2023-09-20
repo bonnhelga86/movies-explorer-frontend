@@ -41,7 +41,7 @@ export function useInputValidation(
 
   const handleSetInputChange = () => {
     name === 'name' && handleValidationTypeName();
-    (name === 'email' && currentValue[name]) && handleValidationTypeEmail();
+    (name === 'email' && currentValue) && handleValidationTypeEmail();
 
     changeUserData({...userData, [name]: currentValue});
     if (inputChange) {
