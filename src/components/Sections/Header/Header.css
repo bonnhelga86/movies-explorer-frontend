@@ -22,6 +22,10 @@
   background-color: #fff;
 }
 
+.header__logo {
+  width: 38px;
+}
+
 .header__logo-image {
   display: block;
 }
@@ -115,7 +119,7 @@
 
 .header__slider-menu {
   display: none;
-  cursor: pointer;
+  background-color: inherit;
 }
 
 .header__slider-open {

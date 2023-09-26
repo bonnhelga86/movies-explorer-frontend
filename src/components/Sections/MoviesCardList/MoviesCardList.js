@@ -1,74 +1,95 @@
 import React from 'react';
 import MoviesCard from '../../Elements/MoviesCard/MoviesCard';
+import { handler, mediaQuery } from '../../../utils/helpers';
 
-function MoviesCardList({ movies, type, buttonLabel }) {
-  const [moviesCount, setMoviesCount] = React.useState(16);
-  let [moviesPage, setMoviesPage] = React.useState(1);
+function MoviesCardList({
+  movies,
+  typeMoviesPage,
+  type,
+  buttonLabel,
+  handleLikesMovie,
+  isNewSearch,
+  setIsNewSearch
+}) {
   const [showMovies, setShowMovies] = React.useState([]);
+  const [initialMoviesCount, setInitialMoviesCount] = React.useState(0);
+  const [extraMoviesCount, setExtraMoviesCount] = React.useState(0);
   const moviesTotalCount = movies.length;
+  let [moviesPage, setMoviesPage] = React.useState(0);
 
-  const mediaQuery = [
-    window.matchMedia('(min-width: 1297px)'),
-    window.matchMedia('(max-width: 960px)'),
-    window.matchMedia('(max-width: 675px)')
-  ]
+  const handlerMoviesCount = () => {
+    const { initialMoviesCount, extraMoviesCount } = handler();
+    setInitialMoviesCount(initialMoviesCount);
+    setExtraMoviesCount(extraMoviesCount);
+  }
 
-  const handler = (event) => {
-    if (window.innerWidth >= 1297) {
-      setMoviesCount(16);
-    } else if (window.innerWidth < 1297 && window.innerWidth > 960) {
-      setMoviesCount(15);
-    } else if (window.innerWidth <= 960 && window.innerWidth > 675) {
-      setMoviesCount(8);
-    } else if (window.innerWidth <= 675) {
-      setMoviesCount(5);
-    }
-  };
+  const getExtraMovies = () => {
+    const endCount = (initialMoviesCount + extraMoviesCount * moviesPage);
+    setShowMovies([
+      ...showMovies,
+      ...movies.slice((showMovies.length), endCount)
+    ]);
+  }
 
   React.useEffect(() => {
     mediaQuery.map(item => {
-      item.addEventListener('change', handler);
-    })
-
-    handler();
-
+      item.addEventListener('change', handlerMoviesCount);
+    });
+    handlerMoviesCount();
     return () => {
       mediaQuery.map(item => {
-        item.removeEventListener('change', handler);
+        item.removeEventListener('change', handlerMoviesCount);
       })
     }
   }, []);
 
   React.useEffect(() => {
-    setShowMovies(movies.slice(0, moviesCount*moviesPage));
-  }, [moviesCount, moviesPage])
+    if (typeMoviesPage === 'saved-movies') {
+      setShowMovies(movies);
+    } else if (typeMoviesPage === 'movies') {
+      setShowMovies(movies.slice(0, initialMoviesCount + extraMoviesCount * moviesPage));
+    }
+  }, [movies, initialMoviesCount]);
+
+  React.useEffect(() => {
+    getExtraMovies();
+  }, [moviesPage]);
+
+  React.useEffect(() => {
+    if (isNewSearch) {
+      setMoviesPage(0);
+      setIsNewSearch(false);
+    }
+  }, [isNewSearch]);
 
   return (
     <>
       <ul className="movies__list page__list">
-        {movies.length > 0
-          ? showMovies.map(showMovie => (
-              <MoviesCard
-                key={showMovie.id}
-                title={showMovie.title}
-                likes={showMovie.likes}
-                type={type}
-                buttonLabel={buttonLabel}
-              />
-            ))
-          : 'Ничего не нашлось'
-        }
+        {showMovies.map(showMovie => (
+          <MoviesCard
+            key={showMovie.movieId}
+            movie={showMovie}
+            likes={showMovie.isLiked ? 'likes' : 'unlikes'}
+            type={type}
+            buttonLabel={buttonLabel}
+            handleLikesMovie={handleLikesMovie}
+          />
+        ))}
       </ul>
 
-      <button
-        className={
-          `movies__more page__button
-          ${moviesTotalCount === showMovies.length && 'movies__more_hidden'}`
-        }
-        onClick={() => setMoviesPage(++moviesPage)}
-      >
-        Ещё
-      </button>
+      {(typeMoviesPage === 'movies')
+      && <button
+          className={
+            `movies__more page__button
+            ${moviesTotalCount === showMovies.length && 'movies__more_hidden'}`
+          }
+          onClick={() => setMoviesPage(++moviesPage)}
+          type="button"
+        >
+          Ещё
+        </button>
+      }
+
     </>
   );
 }

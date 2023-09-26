@@ -2,10 +2,21 @@
  padding: 70px 70px 80px;
 }
 
+.movies__query {
+  margin: 30px auto;
+  max-width: 353px;
+  display: block;
+  text-align: center;
+  font-size: 30px;
+  line-height: 38px;
+  font-weight: 500;
+  color: #A0A0A0;
+}
+
 .movies__list {
   margin-bottom: 60px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(254px, 1fr));
+  grid-template-columns: repeat(4, minmax(254px, 1fr));
   column-gap: 20px;
   row-gap: 38px;
 }
@@ -15,11 +26,10 @@
   aspect-ratio: 12/6.7112;
   object-fit: cover;
   display: block;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
 .movies__title-wrap {
-  position: relative;
   display: flex;
   justify-content: space-between;
   padding-bottom: 14px;
@@ -29,6 +39,7 @@
 
 .movies__title {
   margin: 0;
+  padding-top: 4px;
   width: 83.7%;
   height: 32px;
   font-size: 13px;
@@ -41,12 +52,9 @@
 }
 
 .movies__button {
-  position: absolute;
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  top: -4px;
-  right: 0;
 }
 
 .movies__button_type_likes {
@@ -90,6 +98,12 @@
   visibility: hidden;
 }
 
+@media screen and (max-width: 1233px) {
+  .movies__list {
+    grid-template-columns: repeat(3, minmax(254px, 1fr));
+  }
+}
+
 @media screen and (max-width: 960px) {
   .movies {
     padding-right: 30px;
@@ -97,7 +111,7 @@
   }
 
   .movies__list {
-    grid-template-columns: repeat(auto-fit, minmax(337px, 1fr));
+    grid-template-columns: repeat(2, minmax(337px, 1fr));
     column-gap: 30px;
     row-gap: 30px;
   }
@@ -113,7 +127,7 @@
 
 @media screen and (max-width: 782px) {
   .movies__list {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
     column-gap: 10px;
   }
 }
@@ -125,8 +139,14 @@
     padding-top: 40px;
   }
 
+  .movies__query {
+    max-width: 225px;
+    font-size: 20px;
+    line-height: 24px;
+  }
+
   .movies__list {
-    grid-template-columns: repeat(auto-fit, minmax(315px, 1fr));
+    grid-template-columns: minmax(315px, 1fr);
     row-gap: 34px;
   }
 
@@ -145,6 +165,10 @@
     margin-bottom: 6px;
   }
 
+  .movies__button_type_dislikes {
+    opacity: 1;
+  }
+
   .movies__more {
     width: 240px;
   }
@@ -152,6 +176,6 @@
 
 @media screen and (max-width: 500px) {
   .movies__list {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: minmax(300px, 1fr);
   }
 }

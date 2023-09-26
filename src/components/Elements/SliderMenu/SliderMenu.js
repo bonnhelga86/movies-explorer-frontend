@@ -1,8 +1,10 @@
 function SliderMenu({ isPopupOpen, changePopupOpen, theme }) {
   return(
-    <div
-      className="header__slider-menu page__link"
+    <button
+      type="button"
+      className="header__slider-menu page__button"
       onClick={() => changePopupOpen(!isPopupOpen)}
+      aria-label="Меню"
     >
       {!isPopupOpen
       && <div className="header__slider-open">
@@ -11,7 +13,7 @@ function SliderMenu({ isPopupOpen, changePopupOpen, theme }) {
           <hr className={`header__slider-line header__slider-line_theme_${theme}`} />
         </div>
       }
-    </div>
+    </button>
   )
 }
 

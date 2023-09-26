@@ -17,3 +17,5 @@
 В качестве макета был выбран __light-1__ .
 
 Адрес репозитория: https://github.com/bonnhelga86/movies-explorer-frontend
+Адрес проекта на сервере: https://movies--explorer.nomoredomainsicu.ru
+Ссылка на пул реквест: https://github.com/bonnhelga86/movies-explorer-frontend/pull/2

@@ -1,17 +1,33 @@
-function Form({ formName, type, buttonValue, extraButtonClass='', children }) {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  }
+import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
+function Form(
+  {
+    formName,
+    type,
+    buttonValue,
+    handleSubmitClick,
+    formRef,
+    extraButtonClass='',
+    isShort='',
+    handleIsShort='',
+    children
+  }) {
   return (
-    <form name={formName+'-form'} className={type+'__form form'} noValidate>
+    <form
+      ref={formRef}
+      name={`${formName}-form`}
+      className={`${type}__form form`}
+      onSubmit={handleSubmitClick}
+      noValidate
+    >
       {children}
       <button
         className={`page__button ${type}__button ${extraButtonClass}`}
-        onClick={handleSubmit}
+        type="submit"
       >
         {buttonValue}
       </button>
+      {type === 'search' && <FilterCheckbox isShort={isShort} handleIsShort={handleIsShort} />}
     </form>
   );
 }

@@ -4,6 +4,7 @@ const inputList = {
     name: 'name',
     type: 'text',
     extraProps: {
+      placeholder: 'Заполните поле Имя',
       minLength: '2',
       maxLength: '30'
     }
@@ -11,12 +12,18 @@ const inputList = {
   email: {
     label: 'E-mail',
     name: 'email',
-    type: 'email'
+    type: 'email',
+    extraProps: {
+      placeholder: 'Заполните поле E-mail'
+    }
   },
   password: {
     label: 'Пароль',
     name: 'password',
-    type: 'password'
+    type: 'password',
+    extraProps: {
+      placeholder: 'Заполните поле Пароль'
+    }
   }
 }
 

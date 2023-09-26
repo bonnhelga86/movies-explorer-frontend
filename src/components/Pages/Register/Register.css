@@ -19,7 +19,7 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-bottom: 116px;
+  margin-bottom: 83px;
   min-height: 219px;
 }
 
@@ -44,11 +44,16 @@
   border-bottom: 1px solid #E8E8E8;
 }
 
+.sign__input:focus {
+  border-color: #3456F3;
+}
+
 .sign__input_type_error {
   color: #FF3055;
 }
 
 .sign__text-error {
+  min-height: 12px;
   font-size: 10px;
   line-height: 12px;
   font-weight: 400;

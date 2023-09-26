@@ -4,7 +4,7 @@ function NotFound() {
   const navigate = useNavigate();
 
   return (
-    <div className="error">
+    <section className="error" aria-label="Секция страница не найдена">
       <h2 className="error__code">
         404
       </h2>
@@ -12,7 +12,7 @@ function NotFound() {
       <Link to="" onClick={() => navigate(-1)} className="error__link">
         Назад
       </Link>
-    </div>
+    </section>
   );
 }
 

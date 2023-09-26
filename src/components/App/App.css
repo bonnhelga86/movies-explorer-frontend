@@ -34,6 +34,16 @@
   opacity: .8;
 }
 
+.page__input {
+  border: none;
+  outline: none;
+  padding: 0;
+}
+
+.page__input:focus {
+  font-weight: 500;
+}
+
 .page__list {
   margin: 0;
   padding: 0;

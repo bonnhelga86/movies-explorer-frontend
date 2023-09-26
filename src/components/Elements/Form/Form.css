@@ -1,12 +1,5 @@
-.form__input {
-  border: none;
-  outline: none;
-  padding: 0;
-}
-
-.sign__input:focus {
-  font-weight: 500;
-  border-color: #3456F3;
+.form_disabled {
+  pointer-events: none;
 }
 
 .form__button {
@@ -18,11 +11,8 @@
   border-radius: 3px;
 }
 
-.form__button_disabled {
-  pointer-events: none;
-}
-
 .form__button_type_active {
+  pointer-events: all;
   background-color: #3456F3;
   color: #fff;
 }
@@ -31,6 +21,27 @@
   pointer-events: none;
   background-color: #F8F8F8;
   color: #C2C2C2;
+}
+
+.form__response-text {
+  min-height: 13px;
+  text-align: center;
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  display: block;
+  visibility: hidden;
+}
+
+.form__response-text_type_error {
+  color: #FF004C;
+  visibility: visible;
+}
+
+.form__response-text_type_success {
+  color: #2BE080;
+  visibility: visible;
 }
 
 @media screen and (max-width: 487px) {
