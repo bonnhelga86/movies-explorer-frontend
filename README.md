@@ -13,8 +13,7 @@
 
 ## Технологии
 
-Проект Movies-explorer построен на основе React. Для разработки серверного кода использовался фреймворк __Express__.
-Валидация осуществляется при помощи двух библиотек: __celebrate__ и __validator__.
+Проект Movies-explorer построен на основе React.
 
 <div>
   <img src="https://img.shields.io/badge/React-%23fcc630?logo=react&logoColor=%23fff"
